@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeculPlus", "SpeculPlus\Sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{B3F45C7E-32E9-4FAF-A909-07ACBADF808A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorage", "FileStorage\FileStorage.csproj", "{149E5EB2-CCF6-4905-8F28-34605046106D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorage", "FileStorage\FileStorage.csproj", "{149E5EB2-CCF6-4905-8F28-34605046106D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{B2265785-A68B-41F6-B432-589AD72F92CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{149E5EB2-CCF6-4905-8F28-34605046106D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{149E5EB2-CCF6-4905-8F28-34605046106D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{149E5EB2-CCF6-4905-8F28-34605046106D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2265785-A68B-41F6-B432-589AD72F92CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2265785-A68B-41F6-B432-589AD72F92CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2265785-A68B-41F6-B432-589AD72F92CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2265785-A68B-41F6-B432-589AD72F92CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
