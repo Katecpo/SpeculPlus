@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SpeculPlus"
+             x:Class="SpeculPlus.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label Text="Specul+" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand"
+           TextColor="AntiqueWhite"/>
+
+        <ListView ItemsSource="">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Scanner un produit"
+            BackgroundColor="DarkGray"
+            Clicked="Button_Clicked"/>
+
+    </StackLayout>
+
+</ContentPage>
