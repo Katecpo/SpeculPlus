@@ -9,18 +9,22 @@
                 HorizontalOptions="Center"
                 TextColor="AntiqueWhite"/>
 
-        <Image   
-                VerticalOptions="StartAndExpand" 
-                HorizontalOptions="Center"
-                HeightRequest="300"
-                WidthRequest="300"/>
+            <Image  Source=""
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Center"
+                    HeightRequest="300"
+                    WidthRequest="300"/>
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Label Text="Nom : " HorizontalTextAlignment="Start"/>
-                <Editor Text="Saisir Nom" HeightRequest="50" HorizontalOptions="Center" TextColor="AntiqueWhite"/>
-                <Label Text="Prix : " HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="AntiqueWhite"/>
+                <Entry Text="Nom" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="Start" TextColor="AntiqueWhite"/>
+                <Entry Text="Prix" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="AntiqueWhite" />
             </Grid>
 
+            <Label Text="Catégorie" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+
+            <Button Text="Ajouter un produit"
+                    BackgroundColor="DarkGray"
+                    Clicked="Button_Clicked"/>
 
     </StackLayout>
     
