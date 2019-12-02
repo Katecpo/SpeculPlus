@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeculPlus.EditPage">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="SPECUL +" VerticalOptions="StartAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                TextColor="AntiqueWhite"/>
+
+            <Image  Source=""
+                    VerticalOptions="StartAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    HeightRequest="300"
+                    WidthRequest="300"/>
+
+            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
+                <Entry x:Name="name" Text="Nom" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="AntiqueWhite"/>
+                <Entry x:Name="price" Text="Prix" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="AntiqueWhite" />
+            </Grid>
+
+            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
+                <Label Text="Catégorie" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="AntiqueWhite"/>
+                <Picker x:Name="listCat" Title="Catégorie"   VerticalOptions="CenterAndExpand" HeightRequest="80"/>
+            </Grid>
+            
+            <Button Text="Ajouter un produit"
+                    BackgroundColor="DarkGray"
+                    Clicked="Button_Clicked"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

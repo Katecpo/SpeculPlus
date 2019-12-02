@@ -34,7 +34,6 @@ namespace Logic
         public List<Category> GetAll()
         {
             return categories;
-        }
-        
+        }        
     }
 }
