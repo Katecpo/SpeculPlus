@@ -7,7 +7,7 @@
 
             <Label Text="SPECUL +" VerticalOptions="StartAndExpand"
                 HorizontalOptions="CenterAndExpand"
-                TextColor="AntiqueWhite"/>
+                TextColor="DarkGray"/>
 
             <Image  Source=""
                     VerticalOptions="StartAndExpand" 
@@ -16,18 +16,18 @@
                     WidthRequest="300"/>
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Entry x:Name="name" Text="Nom" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="AntiqueWhite"/>
-                <Entry x:Name="price" Text="Prix" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="AntiqueWhite" />
+                <Entry x:Name="name" Text="Nom" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="DarkGray"/>
+                <Entry x:Name="price" Text="Prix" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="DarkGray" />
             </Grid>
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Label Text="Catégorie" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="AntiqueWhite"/>
-                <Picker x:Name="listCat" Title="Catégorie"   VerticalOptions="CenterAndExpand" HeightRequest="80"/>
+                <Label Text="Catégorie" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="DarkGray"/>
+                <Picker x:Name="listCat" Title="Catégorie" VerticalOptions="CenterAndExpand" HeightRequest="80"/>
             </Grid>
-            
-            <Button Text="Ajouter un produit"
+
+            <Button Text="Terminé"
                     BackgroundColor="DarkGray"
-                    Clicked="Button_Clicked"/>
+                    Clicked="AddProduct_Clicked"/>
 
         </StackLayout>
     </ContentPage.Content>

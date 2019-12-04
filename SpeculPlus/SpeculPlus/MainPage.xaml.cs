@@ -2,17 +2,20 @@
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 using Logic;
+using FileStorage;
 
 namespace SpeculPlus
 {
     public partial class MainPage : ContentPage
     {
         private IProductStorage storage;
+        private ProductList pl;
 
         public MainPage()
         {
             InitializeComponent();
 
+            /*
             ProductList pl = new ProductList();
 
             Product p1 = new Product();
@@ -27,6 +30,10 @@ namespace SpeculPlus
             pl.Add(p2);
 
             listeProduits.ItemsSource = pl.ListAll();
+            */
+
+            storage = new JsonStorage("products.json");
+            pl = storage.Load();
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
@@ -52,7 +59,9 @@ namespace SpeculPlus
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    //await DisplayAlert("Scanned Barcode", result.Text, "OK");
+                    Product p = new Product();
+                    p.Barcode = result.Text;
                 });
             };
         }

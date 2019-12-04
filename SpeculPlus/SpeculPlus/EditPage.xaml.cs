@@ -1,31 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Logic;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using Logic;
-
 namespace SpeculPlus
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditPage : ContentPage
 	{
-        private Product product;
-		public EditPage (CategoryList c, String barcode)
+        private Product p = null;
+
+		public EditPage ()
 		{
 			InitializeComponent ();
-            this.listCat.ItemsSource = c.GetAll();
 		}
 
-        private void Button_Clicked(object sender, EventArgs e)
+        public EditPage(Product p)
         {
-            product.Name = name.Text;
-            product.Price = float.Parse(price.Text);
-            product.Category = (Category)listCat.SelectedItem;
+            InitializeComponent();
+            this.p = p;
         }
+
+        private void AddProduct_Clicked(object sender, EventArgs e)
+        {
+            p.Name = name.Text;
+            p.Price = float.Parse(price.Text);
+            p.Category = (Category)listCat.SelectedItem;
+        }
+
     }
 }
