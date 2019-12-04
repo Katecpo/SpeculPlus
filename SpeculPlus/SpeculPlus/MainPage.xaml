@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SpeculPlus"
              x:Class="SpeculPlus.MainPage"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Appearing="MainPage_Appearing">
 
     <StackLayout>
         <!-- Place new controls here -->

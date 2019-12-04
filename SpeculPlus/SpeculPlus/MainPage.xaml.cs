@@ -34,6 +34,7 @@ namespace SpeculPlus
 
             storage = new JsonStorage("products.json");
             pl = storage.Load();
+            listeProduits.ItemsSource = pl.ListAll();
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
@@ -60,8 +61,14 @@ namespace SpeculPlus
                 {
                     await Navigation.PopAsync();
                     //await DisplayAlert("Scanned Barcode", result.Text, "OK");
-                    Product p = new Product();
+
+                    // Création du produit après scan
+                    Product p = storage.Create();
                     p.Barcode = result.Text;
+                    pl.Add(p);
+                    storage.Update(p);
+                    
+                    await Navigation.PushAsync(new EditPage(p, storage));
                 });
             };
         }
@@ -69,7 +76,15 @@ namespace SpeculPlus
         private async void ListeProduits_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             Product ItemTapped = e.Item as Product;
-            await DisplayAlert("Hop hop hop", "Tu as appuyé sur " + ItemTapped.Name, "OK");
+            //await DisplayAlert("Hop hop hop", "Tu as appuyé sur " + ItemTapped.Name, "OK");
+            await Navigation.PushAsync(new EditPage(ItemTapped, storage));
+        }
+
+        private void MainPage_Appearing(object sender, EventArgs e)
+        {
+            listeProduits.BeginRefresh();
+            pl = storage.Load();
+            listeProduits.EndRefresh();
         }
     }
 }

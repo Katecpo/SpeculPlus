@@ -18,7 +18,7 @@ namespace FileStorage
         /// <param name="file">Chemin vers le fichier JSON</param>
         public JsonStorage(string file)
         {
-            this.file = file;
+            this.file = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), file);
         }
 
         public Product Create()
