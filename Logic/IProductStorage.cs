@@ -1,33 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Logic
+﻿namespace Logic
 {
+    /// <summary>
+    /// Couche d'abstraction et de liaison entre la couche métier et la couche de stockage
+    /// </summary>
     public interface IProductStorage
     {
         /// <summary>
-        /// Créer un produit
+        /// Crée un produit
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Le produit créé</returns>
         Product Create();
 
         /// <summary>
-        /// Update le produit
+        /// Mets à jour le produit
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Produit à mettre à jour</param>
         void Update(Product p);
 
         /// <summary>
         /// Supprime le produit
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Produit à supprimer</param>
         void Delete(Product p);
 
         /// <summary>
         /// Charge une liste de produits
         /// </summary>
-        /// <returns></returns>
-        List<Product> Load();
+        /// <returns>Liste de produits stockée</returns>
+        ProductList Load();
     }
 }

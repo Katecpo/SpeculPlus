@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Logic
 {
+    [DataContract]
+    /// <summary>
+    /// Liste de catégories
+    /// </summary>
     public class CategoryList
     {
-        private List<Category> categories = new List<Category>();
+        [DataMember] private List<Category> categories = new List<Category>();
 
         /// <summary>
         /// Ajoute une categorie dans la liste de categories
         /// </summary>
-        /// <param name="c"></param>
+        /// <param name="c">Catégorie à ajouter</param>
          
         public void Add(Category c)
         {
@@ -19,18 +22,18 @@ namespace Logic
         }
 
         /// <summary>
-        /// Supprime une categorie dans la liste de categories
+        /// Supprime une catégorie dans la liste de categories
         /// </summary>
-        /// <param name="c"></param>
+        /// <param name="c">Catégorie à supprimer</param>
         public void Remove(Category c)
         {
             categories.Remove(c);
         }
 
         /// <summary>
-        /// Renvoie la list de categories
+        /// Renvoie la liste de catégories
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Catégories</returns>
         public List<Category> GetAll()
         {
             return categories;

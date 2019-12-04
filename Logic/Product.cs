@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace Logic
 {
+    [DataContract]
+    /// <summary>
+    /// Produit
+    /// </summary>
     public class Product
     {
-        private Category category;
-        private String name;
-        private float price;
-        private String barcode;
+        [DataMember] private Category category;
+        [DataMember] private string name;
+        [DataMember] private float price;
+        [DataMember] private string image;
+        [DataMember] private string barcode;
 
         /// <summary>
-        /// Getter & Setter for category
+        /// Catégorie du produit
         /// </summary>
         public Category Category
         {
@@ -21,16 +24,16 @@ namespace Logic
         }
 
         /// <summary>
-        /// Getter & Setter for name
+        /// Nom du produit
         /// </summary>
-        public String Name
+        public string Name
         {
             get => name;
             set => name = value;
         }
 
         /// <summary>
-        /// Getter & Setter for price
+        /// Prix du produit
         /// </summary>
         public float Price
         {
@@ -39,9 +42,9 @@ namespace Logic
         }
 
         /// <summary>
-        /// Getter & Setter for barcode
+        /// Code-barre du produit
         /// </summary>
-        public String Barcode
+        public string Barcode
         {
             get => barcode;
             set => barcode = value;

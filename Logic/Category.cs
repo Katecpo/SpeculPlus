@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace Logic
 {
+    [DataContract]
     public class Category
     {
-        private String name;
-        private String color;
+        [DataMember] private string name;
+        [DataMember] private string color;
 
         /// <summary>
-        /// Getter & Setter for name
+        /// Nom de la catégorie
         /// </summary>
-        public String Name
+        public string Name
         {
             get => name;
             set => name = value;
         }
 
         /// <summary>
-        /// Getter & Setter for color
+        /// Couleur de la catégorie
         /// </summary>
-        public String Color
+        public string Color
         {
             get => color;
             set => color = value;

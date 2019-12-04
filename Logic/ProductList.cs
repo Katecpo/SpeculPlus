@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Logic
 {
+    [DataContract]
+    /// <summary>
+    /// Liste de produits
+    /// </summary>
     public class ProductList
     {
-        private List<Product> products = new List<Product>();
+        [DataMember] private List<Product> products = new List<Product>();
 
         /// <summary>
-        /// Ajoute un produit dans la list de produits
+        /// Ajoute un produit dans la liste de produits
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Produit à ajouter</param>
         public void Add(Product p)
         {
             products.Add(p);
         }
 
         /// <summary>
-        /// Supprimer un produit dans la list de produits
+        /// Supprimer un produit dans la liste de produits
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Produit à supprimer</param>
         public void Remove(Product p)
         {
             products.Remove(p);
@@ -29,7 +32,7 @@ namespace Logic
         /// <summary>
         /// Retourne la liste de produits
         /// </summary>
-        /// <returns>products</returns>
+        /// <returns>Les produits</returns>
         public List<Product> ListAll()
         {
             return products;
