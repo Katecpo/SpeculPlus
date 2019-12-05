@@ -19,8 +19,10 @@ namespace Logic
         /// </summary>
         public Category Category
         {
-            get => category;
-            set => category = value;
+            get { return category; }
+            set { 
+                category = value;
+            }
         }
 
         /// <summary>
@@ -28,8 +30,14 @@ namespace Logic
         /// </summary>
         public string Name
         {
-            get => name;
-            set => name = value;
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
         }
 
         /// <summary>

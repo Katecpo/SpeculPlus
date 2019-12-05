@@ -15,26 +15,10 @@ namespace SpeculPlus
         {
             InitializeComponent();
 
-            /*
-            ProductList pl = new ProductList();
-
-            Product p1 = new Product();
-            p1.Name = "Star Wars";
-            p1.Price = 20;
-
-            Product p2 = new Product();
-            p2.Name = "Figurine";
-            p2.Price = 40;
-
-            pl.Add(p1);
-            pl.Add(p2);
-
-            listeProduits.ItemsSource = pl.ListAll();
-            */
-
             storage = new JsonStorage("products.json");
             pl = storage.Load();
-            listeProduits.ItemsSource = pl.ListAll();
+            BindingContext = pl;
+            //listeProduits.ItemsSource = pl.Products;
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
@@ -82,9 +66,8 @@ namespace SpeculPlus
 
         private void MainPage_Appearing(object sender, EventArgs e)
         {
-            listeProduits.BeginRefresh();
-            pl = storage.Load();
-            listeProduits.EndRefresh();
+            //await DisplayAlert("oui","ça a apparu", "OK");
+            OnPropertyChanged();
         }
     }
 }

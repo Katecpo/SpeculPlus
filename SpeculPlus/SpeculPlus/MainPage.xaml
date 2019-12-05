@@ -13,7 +13,7 @@
            VerticalOptions="CenterAndExpand"
            TextColor="DarkGray"/>
 
-        <ListView x:Name="listeProduits" HasUnevenRows="True" SelectionMode="None" ItemTapped="ListeProduits_ItemTapped">
+        <ListView x:Name="listeProduits" ItemsSource="{Binding Products}" HasUnevenRows="True" SelectionMode="None" ItemTapped="ListeProduits_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell Height="90">

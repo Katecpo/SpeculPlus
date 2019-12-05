@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Logic
@@ -7,9 +9,9 @@ namespace Logic
     /// <summary>
     /// Liste de produits
     /// </summary>
-    public class ProductList
+    public class ProductList 
     {
-        [DataMember] private List<Product> products = new List<Product>();
+        [DataMember] private ObservableCollection<Product> products = new ObservableCollection<Product>();
 
         /// <summary>
         /// Ajoute un produit dans la liste de produits
@@ -30,12 +32,11 @@ namespace Logic
         }
 
         /// <summary>
-        /// Retourne la liste de produits
+        /// Liste de produits
         /// </summary>
-        /// <returns>Les produits</returns>
-        public List<Product> ListAll()
+        public ObservableCollection<Product> Products
         {
-            return products;
+            get => products;
         }
     }
 }

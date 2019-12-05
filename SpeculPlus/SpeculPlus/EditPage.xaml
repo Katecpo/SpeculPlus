@@ -16,8 +16,8 @@
                     WidthRequest="300"/>
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Entry x:Name="name" Text="Nom" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="DarkGray"/>
-                <Entry x:Name="price" Text="Prix" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="DarkGray" />
+                <Entry x:Name="name" Text="{Binding Name}" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="DarkGray"/>
+                <Entry x:Name="price" Text="{Binding Price}" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="DarkGray" />
             </Grid>
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">

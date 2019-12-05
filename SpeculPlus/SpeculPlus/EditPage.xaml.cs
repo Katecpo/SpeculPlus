@@ -21,6 +21,7 @@ namespace SpeculPlus
         {
             InitializeComponent();
             this.p = p;
+            BindingContext = this.p;
             this.storage = storage;
         }
 
