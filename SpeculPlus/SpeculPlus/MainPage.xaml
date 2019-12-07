@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SpeculPlus"
              x:Class="SpeculPlus.MainPage"
-             NavigationPage.HasNavigationBar="False"
-             Appearing="MainPage_Appearing">
+             NavigationPage.HasNavigationBar="False">
 
     <StackLayout>
         <!-- Place new controls here -->
@@ -13,7 +12,7 @@
            VerticalOptions="CenterAndExpand"
            TextColor="DarkGray"/>
 
-        <ListView x:Name="listeProduits" ItemsSource="{Binding Products}" HasUnevenRows="True" SelectionMode="None" ItemTapped="ListeProduits_ItemTapped">
+        <ListView x:Name="listeProduits" ItemsSource="{Binding ProductList}" HasUnevenRows="True" SelectionMode="None" ItemTapped="ListeProduits_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell Height="90">
@@ -21,7 +20,7 @@
                             <BoxView CornerRadius="45" Color="DarkGray" WidthRequest="80" />
                             <StackLayout VerticalOptions="CenterAndExpand" Spacing="0">
                                 <Label Font="Bold" Text="{Binding Name}" FontSize="20" />
-                                <Label Text="{Binding Price, StringFormat='{0} €' }" />
+                                <Label Text="{Binding Price, StringFormat='{0} €'}" />
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
@@ -29,6 +28,9 @@
             </ListView.ItemTemplate>
         </ListView>
 
+        <Button Text="Add"
+            BackgroundColor="DarkGray"
+            Clicked="AddProduct"/>
         <Button Text="Scanner un produit"
             BackgroundColor="DarkGray"
             Clicked="ScanButton_Clicked"/>

@@ -10,6 +10,7 @@ namespace SpeculPlus
     {
         private IProductStorage storage;
         private ProductList pl;
+        private ProductListViewModel plvm;
 
         public MainPage()
         {
@@ -17,8 +18,8 @@ namespace SpeculPlus
 
             storage = new JsonStorage("products.json");
             pl = storage.Load();
-            BindingContext = pl;
-            //listeProduits.ItemsSource = pl.Products;
+            plvm = new ProductListViewModel(pl);
+            BindingContext = plvm;
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
@@ -44,14 +45,15 @@ namespace SpeculPlus
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    //await DisplayAlert("Scanned Barcode", result.Text, "OK");
 
                     // Création du produit après scan
-                    Product p = storage.Create();
+                    ProductViewModel p = new ProductViewModel(storage.Create());
                     p.Barcode = result.Text;
-                    pl.Add(p);
-                    storage.Update(p);
-                    
+
+
+                    plvm.Add(p.Product);
+                    storage.Update(p.Product);
+
                     await Navigation.PushAsync(new EditPage(p, storage));
                 });
             };
@@ -59,15 +61,17 @@ namespace SpeculPlus
 
         private async void ListeProduits_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Product ItemTapped = e.Item as Product;
-            //await DisplayAlert("Hop hop hop", "Tu as appuyé sur " + ItemTapped.Name, "OK");
+            ProductViewModel ItemTapped = e.Item as ProductViewModel;
             await Navigation.PushAsync(new EditPage(ItemTapped, storage));
         }
 
-        private void MainPage_Appearing(object sender, EventArgs e)
+        private void AddProduct(object sender, EventArgs e)
         {
-            //await DisplayAlert("oui","ça a apparu", "OK");
-            OnPropertyChanged();
+            ProductViewModel p = new ProductViewModel(storage.Create());
+            plvm.Add(p.Product);
+            
+            p.Name = "Test produit";
+            p.Price = 6.5f;
         }
     }
 }

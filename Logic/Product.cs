@@ -15,6 +15,18 @@ namespace Logic
         [DataMember] private string barcode;
 
         /// <summary>
+        /// Crée un produit vierge
+        /// </summary>
+        public Product()
+        {
+            category = null;
+            name = "";
+            price = 0f;
+            image = "";
+            barcode = "";
+        }
+
+        /// <summary>
         /// Catégorie du produit
         /// </summary>
         public Category Category
@@ -56,6 +68,15 @@ namespace Logic
         {
             get => barcode;
             set => barcode = value;
+        }
+
+        /// <summary>
+        /// L'image du produit
+        /// </summary>
+        public string Image
+        {
+            get => image;
+            set => image = value;
         }
     }
 }
