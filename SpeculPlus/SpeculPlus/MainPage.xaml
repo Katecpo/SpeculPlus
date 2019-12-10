@@ -23,14 +23,19 @@
                                 <Label Text="{Binding Price, StringFormat='{0} €'}" />
                             </StackLayout>
                         </StackLayout>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="Supprimer_Item" Text="Supprimer" />
+                        </ViewCell.ContextActions>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
+        <!--
         <Button Text="Add"
             BackgroundColor="DarkGray"
             Clicked="AddProduct"/>
+        -->
         <Button Text="Scanner un produit"
             BackgroundColor="DarkGray"
             Clicked="ScanButton_Clicked"/>

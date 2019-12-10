@@ -20,6 +20,7 @@ namespace SpeculPlus
         public EditPage(ProductViewModel p, IProductStorage storage)
         {
             InitializeComponent();
+
             this.p = p;
             BindingContext = this.p;
             this.storage = storage;
@@ -27,8 +28,8 @@ namespace SpeculPlus
         
         private async void AddProduct_Clicked(object sender, EventArgs e)
         {
-            p.Name = name.Text;
-            p.Price = float.Parse(price.Text, CultureInfo.InvariantCulture);
+            //p.Name = name.Text;
+            //p.Price = float.Parse(price.Text, CultureInfo.InvariantCulture);
             //p.Category = (Category)listCat.SelectedItem;
 
             storage.Update(p.Product);

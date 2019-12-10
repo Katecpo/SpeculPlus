@@ -47,9 +47,11 @@ namespace SpeculPlus
                     await Navigation.PopAsync();
 
                     // Création du produit après scan
-                    ProductViewModel p = new ProductViewModel(storage.Create());
-                    p.Barcode = result.Text;
-
+                    ProductViewModel p = new ProductViewModel(storage.Create())
+                    {
+                        Barcode = result.Text,
+                        Name = "Nouveau produit"
+                    };
 
                     plvm.Add(p.Product);
                     storage.Update(p.Product);
@@ -68,10 +70,17 @@ namespace SpeculPlus
         private void AddProduct(object sender, EventArgs e)
         {
             ProductViewModel p = new ProductViewModel(storage.Create());
-            plvm.Add(p.Product);
-            
             p.Name = "Test produit";
             p.Price = 6.5f;
+            plvm.Add(p.Product);
+        }
+
+        private void Supprimer_Item(object sender, EventArgs e)
+        {
+            var ItemTapped = ((sender as MenuItem).BindingContext as ProductViewModel);
+
+            storage.Delete(ItemTapped.Product);
+            plvm.Remove(ItemTapped);
         }
     }
 }
