@@ -17,7 +17,7 @@
                 <DataTemplate>
                     <ViewCell Height="90">
                         <StackLayout Padding="10,5" Orientation="Horizontal" Spacing="10">
-                            <BoxView CornerRadius="45" Color="DarkGray" WidthRequest="80" />
+                            <Image Source="{Binding Image}" WidthRequest="80" />
                             <StackLayout VerticalOptions="CenterAndExpand" Spacing="0">
                                 <Label Font="Bold" Text="{Binding Name}" FontSize="20" />
                                 <Label Text="{Binding Price, StringFormat='{0} €'}" />
@@ -37,7 +37,8 @@
             Clicked="AddProduct"/>
         -->
         <Button Text="Scanner un produit"
-            BackgroundColor="DarkGray"
+            BackgroundColor="IndianRed"
+            TextColor="Black"
             Clicked="ScanButton_Clicked"/>
 
     </StackLayout>

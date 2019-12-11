@@ -49,6 +49,8 @@ namespace SpeculPlus
             BindingContext = this.p;
             this.storage = storage;
             this.plvm = plvm;
+
+            p.Image = "barcode";
         }
 
         private async void AddProduct_Clicked(object sender, EventArgs e)

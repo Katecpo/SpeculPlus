@@ -4,29 +4,42 @@
              x:Class="SpeculPlus.EditPage">
     <ContentPage.Content>
         <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <Label Text="SPECUL +" VerticalOptions="StartAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                TextColor="DarkGray"/>
+                <Image Margin="10,10,0,0" Grid.Column="0" Source="{Binding Image}"/>
 
-            <Image  Source=""
-                    VerticalOptions="StartAndExpand" 
-                    HorizontalOptions="CenterAndExpand"
-                    HeightRequest="300"
-                    WidthRequest="300"/>
+                <Label Text="Informations" Grid.Column="1" FontAttributes="Bold" />
+                <Grid Margin="-10,20,0,0" Grid.Column="1">
+                    <Grid Grid.Row="0">
+                        <Label Text="Nom du produit" />
+                        <Entry VerticalOptions="Start" x:Name="name" Text="{Binding Name}" TextColor="DarkGray"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Label Text="Prix du produit" />
+                        <Entry x:Name="price" Text="{Binding Price}" TextColor="DarkGray" />
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Label Text="Catégorie" TextColor="DarkGray"/>
+                        <Picker x:Name="listCat" Title="Catégorie"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            
+
+            
 
             <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Entry x:Name="name" Text="{Binding Name}" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="DarkGray"/>
-                <Entry x:Name="price" Text="{Binding Price}" WidthRequest="300" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" TextColor="DarkGray" />
-            </Grid>
-
-            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                <Label Text="Catégorie" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="DarkGray"/>
-                <Picker x:Name="listCat" Title="Catégorie" VerticalOptions="CenterAndExpand" HeightRequest="80"/>
-            </Grid>
+                </Grid>
 
             <Button Text="Terminé"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="IndianRed"
+                    TextColor="Black"
                     Clicked="AddProduct_Clicked"/>
 
         </StackLayout>
