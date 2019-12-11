@@ -44,8 +44,6 @@ namespace SpeculPlus
                 // Pop the page and show the result
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Navigation.PopAsync();
-
                     // Création du produit après scan
                     ProductViewModel p = new ProductViewModel(storage.Create())
                     {
@@ -53,10 +51,7 @@ namespace SpeculPlus
                         Name = "Nouveau produit"
                     };
 
-                    plvm.Add(p.Product);
-                    storage.Update(p.Product);
-
-                    await Navigation.PushAsync(new EditPage(p, storage));
+                    await Navigation.PushAsync(new EditPage(p, storage, plvm));
                 });
             };
         }
