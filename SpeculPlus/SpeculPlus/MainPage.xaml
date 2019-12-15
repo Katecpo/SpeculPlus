@@ -30,7 +30,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
         <!--
         <Button Text="Add"
             BackgroundColor="DarkGray"
