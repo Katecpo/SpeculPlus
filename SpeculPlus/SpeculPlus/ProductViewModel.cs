@@ -7,11 +7,18 @@ namespace SpeculPlus
     {
         private Product product;
 
+        /// <summary>
+        /// Crée le vue-modèle d'un produit
+        /// </summary>
+        /// <param name="p"></param>
         public ProductViewModel(Product p)
         {
             product = p;
         }
 
+        /// <summary>
+        /// Le nom du produit
+        /// </summary>
         public string Name
         {
             get => product.Name;
@@ -22,6 +29,9 @@ namespace SpeculPlus
             }
         }
 
+        /// <summary>
+        /// Le prix du produit
+        /// </summary>
         public float Price
         {
             get => product.Price;
@@ -32,6 +42,9 @@ namespace SpeculPlus
             }
         }
 
+        /// <summary>
+        /// Le code-barre du produit
+        /// </summary>
         public string Barcode
         {
             get => product.Barcode;
@@ -42,6 +55,9 @@ namespace SpeculPlus
             }
         }
 
+        /// <summary>
+        /// L'image du produit
+        /// </summary>
         public string Image
         {
             get => product.Image;
@@ -52,7 +68,11 @@ namespace SpeculPlus
             }
         }
 
+        /// <summary>
+        /// Le produit du vue-modèle
+        /// </summary>
         public Product Product { get => product; }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

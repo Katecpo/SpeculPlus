@@ -8,7 +8,6 @@ namespace Logic
     /// </summary>
     public class Product
     {
-        [DataMember] private Category category;
         [DataMember] private string name;
         [DataMember] private float price;
         [DataMember] private string image;
@@ -19,22 +18,10 @@ namespace Logic
         /// </summary>
         public Product()
         {
-            category = null;
             name = "";
             price = 0f;
-            image = "";
+            image = "barcode";
             barcode = "";
-        }
-
-        /// <summary>
-        /// Catégorie du produit
-        /// </summary>
-        public Category Category
-        {
-            get { return category; }
-            set { 
-                category = value;
-            }
         }
 
         /// <summary>

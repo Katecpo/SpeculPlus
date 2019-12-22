@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 
 namespace Logic
@@ -10,13 +9,20 @@ namespace Logic
     /// </summary>
     public class CategoryList
     {
-        [DataMember] private ObservableCollection<Category> categories = new ObservableCollection<Category>();
+        [DataMember] private List<Category> categories;
+
+        /// <summary>
+        /// Crée une liste de catégories de produits
+        /// </summary>
+        public CategoryList()
+        {
+            categories = new List<Category>();
+        }
 
         /// <summary>
         /// Ajoute une categorie dans la liste de categories
         /// </summary>
         /// <param name="c">Catégorie à ajouter</param>
-         
         public void Add(Category c)
         {
             categories.Add(c);
@@ -32,12 +38,8 @@ namespace Logic
         }
 
         /// <summary>
-        /// Renvoie la liste de catégories
+        /// La liste des catégories
         /// </summary>
-        /// <returns>Catégories</returns>
-        public ObservableCollection<Category> GetAll()
-        {
-            return categories;
-        }        
+        public List<Category> Categories { get => categories; }        
     }
 }

@@ -6,27 +6,20 @@
     public interface IProductStorage
     {
         /// <summary>
-        /// Crée un produit
+        /// Crée une catégorie vide
         /// </summary>
-        /// <returns>Le produit créé</returns>
-        Product Create();
+        /// <returns>La catégorie créée</returns>
+        Category Create();
 
         /// <summary>
-        /// Mets à jour le produit
+        /// Charge une liste de catégories ainsi que ses produits
         /// </summary>
-        /// <param name="p">Produit à mettre à jour</param>
-        void Update(Product p);
+        /// <returns>Liste de catégorie stockée</returns>
+        CategoryList Load();
 
         /// <summary>
-        /// Supprime le produit
+        /// Sauvegarde la liste de catégories ainsi que ses produits
         /// </summary>
-        /// <param name="p">Produit à supprimer</param>
-        void Delete(Product p);
-
-        /// <summary>
-        /// Charge une liste de produits
-        /// </summary>
-        /// <returns>Liste de produits stockée</returns>
-        ProductList Load();
+        void Save();
     }
 }

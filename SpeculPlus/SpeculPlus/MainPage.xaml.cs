@@ -3,23 +3,25 @@ using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 using Logic;
 using FileStorage;
+using System.Collections.Generic;
 
 namespace SpeculPlus
 {
     public partial class MainPage : ContentPage
     {
         private IProductStorage storage;
-        private ProductList pl;
-        private ProductListViewModel plvm;
+        private CategoryList cl;
+        private CategoryListViewModel clvm;
 
         public MainPage()
         {
             InitializeComponent();
 
-            storage = new JsonStorage("products.json");
-            pl = storage.Load();
-            plvm = new ProductListViewModel(pl);
-            BindingContext = plvm;
+            storage = new JsonStorage("liste16");
+            cl = storage.Load();
+            clvm = new CategoryListViewModel(cl);
+
+            BindingContext = clvm;
         }
 
         private async void ScanButton_Clicked(object sender, EventArgs e)
@@ -45,13 +47,13 @@ namespace SpeculPlus
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // Création du produit après scan
-                    ProductViewModel p = new ProductViewModel(storage.Create())
+                    ProductViewModel p = new ProductViewModel(new Product())
                     {
                         Barcode = result.Text,
                         Name = "Nouveau produit"
                     };
 
-                    await Navigation.PushAsync(new EditPage(p, storage, plvm));
+                    await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory));
                 });
             };
         }
@@ -64,12 +66,26 @@ namespace SpeculPlus
 
         private void AddProduct(object sender, EventArgs e)
         {
-            ProductViewModel p = new ProductViewModel(storage.Create());
+            ProductViewModel p = new ProductViewModel(new Product());
             p.Name = "Test produit";
             p.Price = 6.5f;
-            plvm.Add(p.Product);
+
+            if (clvm.Categories.Count == 0)
+            {
+                clvm.Add(new Category("Figurines", "Black"));
+                clvm.Add(new Category("Livres", "DarkGray"));
+                clvm.Add(new Category("Autres", "Cyan"));
+            }
+
+            clvm.DefaultCategory.Add(p.Product);
         }
 
+        private void SaveList(object sender, EventArgs e)
+        {
+            storage.Save();
+        }
+
+        /*
         private void Supprimer_Item(object sender, EventArgs e)
         {
             var ItemTapped = ((sender as MenuItem).BindingContext as ProductViewModel);
@@ -77,5 +93,6 @@ namespace SpeculPlus
             storage.Delete(ItemTapped.Product);
             plvm.Remove(ItemTapped);
         }
+        */
     }
 }

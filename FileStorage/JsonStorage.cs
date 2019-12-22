@@ -1,4 +1,5 @@
 ﻿using Logic;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
@@ -9,61 +10,54 @@ namespace FileStorage
     /// </summary>
     public class JsonStorage : IProductStorage
     {
+        #region Attributes
         private string file;
-        private ProductList pl;
+        private CategoryList cl;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Initialise le stockage dans un fichier JSON
         /// </summary>
-        /// <param name="file">Chemin vers le fichier JSON</param>
+        /// <param name="file">Nom du fichier (sans extension)</param>
         public JsonStorage(string file)
         {
-            this.file = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), file);
+            this.file = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), file + ".json");
         }
+        #endregion
 
-        public Product Create()
+        #region Methods
+        public Category Create()
         {
-            return new Product();
+            return new Category("Nouvelle catégorie", "White");
         }
 
-        public void Delete(Product p)
-        {
-            Save();
-        }
-
-        public ProductList Load()
+        public CategoryList Load()
         {
             try
             {
                 using (FileStream flux = new FileStream(file, FileMode.Open))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ProductList));
-                    pl = ser.ReadObject(flux) as ProductList;
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(CategoryList));
+                    cl = ser.ReadObject(flux) as CategoryList;
                 }
             }
             catch
             {
-                pl = new ProductList();
+                cl = new CategoryList();
             }
 
-            return pl;
+            return cl;
         }
 
-        public void Update(Product p)
-        {
-            Save();
-        }
-
-        /// <summary>
-        /// Sauvegarde un fichier Json
-        /// </summary>
-        private void Save()
+        public void Save()
         {
             using (FileStream flux = new FileStream(file, FileMode.Create))
             {
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ProductList));
-                ser.WriteObject(flux, pl);
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(CategoryList));
+                ser.WriteObject(flux, cl);
             }
         }
+        #endregion
     }
 }

@@ -11,7 +11,7 @@ namespace SpeculPlus
 	{
         private ProductViewModel p = null;
         private IProductStorage storage;
-        private ProductListViewModel plvm = null;
+        private CategoryViewModel cvm = null;
 
         /// <summary>
         /// A ne pas utiliser pour afficher la page
@@ -40,32 +40,27 @@ namespace SpeculPlus
         /// </summary>
         /// <param name="p">Le vue/modèle du produit à modifer</param>
         /// <param name="storage">Le stockage à utiliser</param>
-        /// <param name="plvm">Le vue/modèle de la liste de produit à laquelle ajouter le produit</param>
-        public EditPage(ProductViewModel p, IProductStorage storage, ProductListViewModel plvm)
+        /// <param name="clvm">Le vue/modèle de la liste de catégories à laquelle ajouter le produit</param>
+        public EditPage(ProductViewModel p, IProductStorage storage, CategoryViewModel cvm)
         {
             InitializeComponent();
 
             this.p = p;
             BindingContext = this.p;
             this.storage = storage;
-            this.plvm = plvm;
-
-            p.Image = "barcode";
+            this.cvm = cvm;
         }
 
         private async void AddProduct_Clicked(object sender, EventArgs e)
         {
-            //p.Name = name.Text;
-            //p.Price = float.Parse(price.Text, CultureInfo.InvariantCulture);
-            //p.Category = (Category)listCat.SelectedItem;
+            if (cvm != null)
+            {
+                cvm.Add(p.Product);
+                storage.Save();
+            }
 
             await Navigation.PopToRootAsync();
 
-            if (plvm != null)
-            {
-                plvm.Add(p.Product);
-                storage.Update(p.Product);
-            }
         }
 
     }
