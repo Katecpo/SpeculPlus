@@ -27,9 +27,8 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    
-    <StackLayout>
 
+    <StackLayout>
         <StackLayout Orientation="Horizontal">
             <Label Text="Mes produits" 
                        Margin="8,8,8,0"
@@ -38,73 +37,94 @@
                        FontAttributes="Bold"/>
         </StackLayout>
 
-        <CollectionView x:Name="listeProduits" SelectionMode="Single" ItemsSource="{Binding ProductsCategory}" IsGrouped="True" >
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" />
-            </CollectionView.ItemsLayout>
+        <AbsoluteLayout>
+            <CollectionView x:Name="listeProduits" SelectionMode="Single" ItemsSource="{Binding ProductsCategory}" IsGrouped="True" SelectionChanged="listeProduits_SelectionChanged" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.EmptyView>
-                <StackLayout>
-                    <Label Text="Aucun produit :-("
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="Aucun produit :-("
                        Margin="10,25,10,10"
                        FontAttributes="Bold"
                        FontSize="18"
                        HorizontalOptions="Fill"
                        HorizontalTextAlignment="Center" />
-                    <Label Text="Lancez-vous, scannez!"
+                        <Label Text="Lancez-vous, scannez!"
                        FontAttributes="Italic"
                        FontSize="12"
                        HorizontalOptions="Fill"
                        HorizontalTextAlignment="Center" />
-                </StackLayout>
-            </CollectionView.EmptyView>
+                    </StackLayout>
+                </CollectionView.EmptyView>
 
-            <CollectionView.GroupHeaderTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding Name}"
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}"
                         BackgroundColor="{StaticResource dominantColor}"
                            TextColor="{Binding Color}"
                         FontSize="Large"
                         FontAttributes="Bold" />
-                </DataTemplate>
-            </CollectionView.GroupHeaderTemplate>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
 
-            <CollectionView.GroupFooterTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
+                <CollectionView.GroupFooterTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
                    Margin="0,0,0,10" />
-                </DataTemplate>
-            </CollectionView.GroupFooterTemplate>
+                    </DataTemplate>
+                </CollectionView.GroupFooterTemplate>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10" Margin="12">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*" />
-                            <RowDefinition Height="1*" />
-                        </Grid.RowDefinitions>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" Margin="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
 
-                        <Image Source="{Binding Image}"
+                            <Image Source="{Binding Image}"
                                    Grid.Row="0"
                                    Aspect="AspectFill"
                                    WidthRequest="100"
                                    HeightRequest="150" />
-                        <StackLayout Grid.Row="1">
-                            <Label Grid.Column="1"
+                            <StackLayout Grid.Row="1">
+                                <Label Grid.Column="1"
                                        VerticalOptions="Center"
                                        Text="{Binding Name}"
                                        FontAttributes="Bold" />
-                            <Label Text="{Binding Price, StringFormat='{0:F2} €'}"
+                                <Label Text="{Binding Price, StringFormat='{0:F2} €'}"
                                        Grid.Row="1"
                                        Grid.Column="1"
                                        VerticalOptions="Start"
                                        FontAttributes="Italic" />
-                        </StackLayout>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
+            <ImageButton 
+                x:Name="EditButton"   
+                Source="EditButton" 
+                BackgroundColor="Transparent"
+                AbsoluteLayout.LayoutFlags="PositionProportional"  
+                AbsoluteLayout.LayoutBounds=".7,.95,80,80"
+                Scale="0.8"
+                IsVisible="False"
+                Clicked="EditButton_Clicked"/>
+            <ImageButton 
+                x:Name="DeleteButton"   
+                Source="DeleteButton" 
+                BackgroundColor="Transparent"
+                AbsoluteLayout.LayoutFlags="PositionProportional"  
+                AbsoluteLayout.LayoutBounds=".95,.95,80,80"
+                Scale="0.8"
+                IsVisible="False"
+                Clicked="DeleteButton_Clicked"/>
+        </AbsoluteLayout>
+        
         <!--
         <Button Text="Save"
             BackgroundColor="DarkGray"

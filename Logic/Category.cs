@@ -20,6 +20,9 @@ namespace Logic
             products = new List<Product>();
             this.name = name;
             this.color = color;
+
+            foreach (var p in products)
+                p.Category = this;
         }
 
         /// <summary>

@@ -9,39 +9,62 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-                <Image Margin="10,10,0,0" Grid.Column="0" Source="{Binding Image}"/>
+                <Image Margin="0,0,0,0" Scale="0.8" Grid.Column="0" Source="{Binding Image}" Grid.Row="0"/>
 
-                <Label Text="Informations" Grid.Column="1" FontAttributes="Bold" />
-                <Grid Margin="-10,20,0,0" Grid.Column="1">
-                    <Grid Grid.Row="0">
-                        <Label Text="Nom du produit" />
-                        <Entry VerticalOptions="Start" x:Name="name" Text="{Binding Name}" TextColor="DarkGray"/>
-                    </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.25*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
+                    <Label Grid.Row="0" Text="Informations" HorizontalOptions="StartAndExpand" FontAttributes="Bold" />
                     <Grid Grid.Row="1">
-                        <Label Text="Prix du produit" />
-                        <Entry x:Name="price" Text="{Binding Price}" TextColor="DarkGray" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="Nom du produit" BackgroundColor="Transparent" />
+                        <Entry Grid.Row="1" x:Name="name" Text="{Binding Name}" TextColor="Black"/>
                     </Grid>
+
 
                     <Grid Grid.Row="2">
-                        <Label Text="Catégorie" TextColor="DarkGray"/>
-                        <Picker x:Name="listCat" Title="Catégorie"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="Prix du produit" />
+                        <Entry Grid.Row="1" x:Name="price" Text="{Binding Price}" TextColor="Black" />
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="Catégorie" TextColor="Black"/>
+                        <Picker Grid.Row="1" x:Name="listCat" Title="Catégorie"/>
                     </Grid>
                 </Grid>
             </Grid>
-            
+        </StackLayout>
 
-            
-
-            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="200">
-                </Grid>
-
-            <Button Text="Terminé"
+        <!--
+        <Button Grid.Row="1" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Text="Terminé"
                     BackgroundColor="IndianRed"
                     TextColor="Black"
                     Clicked="AddProduct_Clicked"/>
+        -->
 
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

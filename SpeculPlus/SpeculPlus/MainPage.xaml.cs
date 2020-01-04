@@ -58,12 +58,6 @@ namespace SpeculPlus
             };
         }
 
-        private async void ListeProduits_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            ProductViewModel ItemTapped = e.Item as ProductViewModel;
-            await Navigation.PushAsync(new EditPage(ItemTapped, storage));
-        }
-
         private void AddProduct(object sender, EventArgs e)
         {
             ProductViewModel p = new ProductViewModel(new Product());
@@ -83,6 +77,39 @@ namespace SpeculPlus
         private void SaveList(object sender, EventArgs e)
         {
             storage.Save();
+        }
+
+        private void listeProduits_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*listeProduits.SelectedItem = null;
+            EditButton.IsVisible = DeleteButton.IsVisible = false;*/
+
+            EditButton.IsVisible = DeleteButton.IsVisible = true;
+
+            var animationEdit = new Animation(callback: d => EditButton.Rotation = d,
+                                  start: EditButton.Rotation,
+                                  end: EditButton.Rotation + 360,
+                                  easing: Easing.SpringOut);
+            animationEdit.Commit(EditButton, "Loop", length: 800);
+
+            var animationDelete = new Animation(callback: d => DeleteButton.Rotation = d,
+                                      start: DeleteButton.Rotation,
+                                      end: DeleteButton.Rotation + 360,
+                                      easing: Easing.SpringOut);
+            animationDelete.Commit(DeleteButton, "Loop", length: 800);
+        }
+
+        private async void EditButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EditPage(listeProduits.SelectedItem as ProductViewModel, storage));
+        }
+
+        private void DeleteButton_Clicked(object sender, EventArgs e)
+        {
+            /*var curItem = listeProduits.SelectedItem as ProductViewModel;
+
+            clvm.Remove(curItem);
+            storage.Save();*/
         }
 
         /*

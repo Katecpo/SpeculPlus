@@ -6,11 +6,12 @@ namespace SpeculPlus
     public class ProductViewModel : INotifyPropertyChanged
     {
         private Product product;
+        private CategoryViewModel category;
 
         /// <summary>
         /// Crée le vue-modèle d'un produit
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Le modèle du produit</param>
         public ProductViewModel(Product p)
         {
             product = p;
@@ -65,6 +66,20 @@ namespace SpeculPlus
             {
                 product.Image = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Image"));
+            }
+        }
+
+        /// <summary>
+        /// La catégorie du produit
+        /// </summary>
+        public CategoryViewModel Category
+        {
+            get => category;
+            set
+            {
+                product.Category = value.Category;
+                category = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Category"));
             }
         }
 

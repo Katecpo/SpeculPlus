@@ -33,6 +33,7 @@ namespace SpeculPlus
             this.p = p;
             BindingContext = this.p;
             this.storage = storage;
+            Title = "Édition";
         }
 
         /// <summary>

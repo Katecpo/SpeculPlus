@@ -12,6 +12,7 @@ namespace Logic
         [DataMember] private float price;
         [DataMember] private string image;
         [DataMember] private string barcode;
+        private Category category;
 
         /// <summary>
         /// Crée un produit vierge
@@ -22,6 +23,7 @@ namespace Logic
             price = 0f;
             image = "barcode";
             barcode = "";
+            category = null;
         }
 
         /// <summary>
@@ -64,6 +66,15 @@ namespace Logic
         {
             get => image;
             set => image = value;
+        }
+
+        /// <summary>
+        /// La catégorie du produit
+        /// </summary>
+        public Category Category
+        {
+            get => category;
+            set => category = value;
         }
     }
 }
