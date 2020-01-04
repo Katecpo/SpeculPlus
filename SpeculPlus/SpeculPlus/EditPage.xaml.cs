@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microcharts.Forms;
 
 namespace SpeculPlus
 {
@@ -34,6 +35,8 @@ namespace SpeculPlus
             BindingContext = this.p;
             this.storage = storage;
             Title = "Édition";
+
+            //var chart = new RadarChart();
         }
 
         /// <summary>

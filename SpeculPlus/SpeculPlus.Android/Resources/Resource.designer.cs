@@ -26,6 +26,7 @@ namespace SpeculPlus.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microcharts.Droid.Resource.String.library_name = global::SpeculPlus.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Animation.abc_fade_in = global::SpeculPlus.Droid.Resource.Animation.abc_fade_in;
 			global::Xamarin.Forms.Platform.Android.Resource.Animation.abc_fade_out = global::SpeculPlus.Droid.Resource.Animation.abc_fade_out;
 			global::Xamarin.Forms.Platform.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::SpeculPlus.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;

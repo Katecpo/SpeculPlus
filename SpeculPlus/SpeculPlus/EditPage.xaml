@@ -1,70 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
              x:Class="SpeculPlus.EditPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="mainColor">#ff8c75</Color>
+            <Color x:Key="dominantColor">#a8432f</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <StackLayout Grid.Column="0">
+                <Image Margin="0,0,0,0" Scale="0.8" Source="{Binding Image}"/>
+            </StackLayout>
 
-                <Image Margin="0,0,0,0" Scale="0.8" Grid.Column="0" Source="{Binding Image}" Grid.Row="0"/>
+            <!-- Statistiques -->
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                <Label Margin="10,0,0,0" Text="Statistiques"/>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.25*"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+                <ScrollView>
+                    <StackLayout>
+                        <microcharts:ChartView x:Name="priceChart" />
+                    </StackLayout>
+                </ScrollView>
 
-                    <Label Grid.Row="0" Text="Informations" HorizontalOptions="StartAndExpand" FontAttributes="Bold" />
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
+                <Button
+                        VerticalOptions="EndAndExpand"
+                        TextColor="White"
+                        FontSize="Medium"
+                        Text="Terminer"
+                        BackgroundColor="{StaticResource dominantColor}"
+                        Clicked="AddProduct_Clicked"/>
+            </StackLayout>
 
-                        <Label Grid.Row="0" Text="Nom du produit" BackgroundColor="Transparent" />
-                        <Entry Grid.Row="1" x:Name="name" Text="{Binding Name}" TextColor="Black"/>
-                    </Grid>
-
-
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Text="Prix du produit" />
-                        <Entry Grid.Row="1" x:Name="price" Text="{Binding Price}" TextColor="Black" />
-                    </Grid>
-
-                    <Grid Grid.Row="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Text="Catégorie" TextColor="Black"/>
-                        <Picker Grid.Row="1" x:Name="listCat" Title="Catégorie"/>
-                    </Grid>
+            <!-- Informations du produit -->
+            <StackLayout Grid.Column="1">
+                <Label FontAttributes="Bold" Text="Informations" />
+                <Grid>
+                    <Label Margin="2,0,0,0" Text="Nom du produit"/>
+                    <Entry Margin="0,10,0,0" x:Name="name" Text="{Binding Name}" TextColor="Black" />
                 </Grid>
-            </Grid>
-        </StackLayout>
-
-        <!--
-        <Button Grid.Row="1" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Text="Terminé"
-                    BackgroundColor="IndianRed"
-                    TextColor="Black"
-                    Clicked="AddProduct_Clicked"/>
-        -->
-
+                <Grid>
+                    <Label Margin="2,0,0,0" Text="Prix du produit" />
+                    <Entry Margin="0,10,0,0" x:Name="price" Text="{Binding Price}" TextColor="Black" />
+                </Grid>
+                <Grid>
+                    <Label Margin="2,0,0,0" Text="Catégorie" TextColor="Black"/>
+                    <Picker Margin="0,10,0,0" x:Name="listCat" Title="Catégorie"/>
+                </Grid>
+            </StackLayout>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
