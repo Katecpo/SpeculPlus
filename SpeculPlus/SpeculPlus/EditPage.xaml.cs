@@ -57,7 +57,7 @@ namespace SpeculPlus
             this.p = p;
             BindingContext = this.p;
             this.storage = storage;
-            this.cvm = cvm;
+            this.cvm = p.Category;
 
             listCat.ItemsSource = clvm.Categories;
             listCat.SelectedItem = p.Category;

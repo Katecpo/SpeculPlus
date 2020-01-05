@@ -46,11 +46,21 @@ namespace SpeculPlus
                 // Pop the page and show the result
                 Device.BeginInvokeOnMainThread(async () =>
                 {
+                    // Si aucune catégorie n'existe après le scan alors il faut créer celles par défaut
+                    if (clvm.Categories.Count == 0)
+                    {
+                        clvm.Add(new Category("Figurines", "Black"));
+                        clvm.Add(new Category("Livres", "DarkGray"));
+                        clvm.Add(new Category("Musique", "White"));
+                        clvm.Add(new Category("Autres", "Cyan"));
+                    }
+
                     // Création du produit après scan
                     ProductViewModel p = new ProductViewModel(new Product())
                     {
                         Barcode = result.Text,
-                        Name = "Nouveau produit"
+                        Name = "Nouveau produit",
+                        Category = clvm.DefaultCategory
                     };
 
                     await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory, clvm));
