@@ -53,7 +53,7 @@ namespace SpeculPlus
                         Name = "Nouveau produit"
                     };
 
-                    await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory));
+                    await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory, clvm));
                 });
             };
         }
@@ -101,15 +101,15 @@ namespace SpeculPlus
 
         private async void EditButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EditPage(listeProduits.SelectedItem as ProductViewModel, storage));
+            await Navigation.PushAsync(new EditPage(listeProduits.SelectedItem as ProductViewModel, storage, clvm));
         }
 
         private void DeleteButton_Clicked(object sender, EventArgs e)
         {
-            /*var curItem = listeProduits.SelectedItem as ProductViewModel;
+            var curItem = listeProduits.SelectedItem as ProductViewModel;
 
-            clvm.Remove(curItem);
-            storage.Save();*/
+            curItem.Category.Remove(curItem);
+            storage.Save();
         }
 
         /*

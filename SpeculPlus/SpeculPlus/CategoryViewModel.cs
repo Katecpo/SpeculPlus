@@ -26,7 +26,11 @@ namespace SpeculPlus
             List<ProductViewModel> productsL = new List<ProductViewModel>();
 
             foreach (Product p in category.Products)
-                productsL.Add(new ProductViewModel(p));
+            {
+                ProductViewModel productvm = new ProductViewModel(p);
+                productsL.Add(productvm);
+                productvm.Category = this;
+            }
 
             products = new ProductsCategory(this, productsL);
         }

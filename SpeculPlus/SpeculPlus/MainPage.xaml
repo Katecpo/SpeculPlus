@@ -19,7 +19,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor"
-                                        Value="{StaticResource mainColor}"/>
+                                        Value="#e8a090"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -62,17 +62,17 @@
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Name}"
-                        BackgroundColor="{StaticResource dominantColor}"
-                           TextColor="{Binding Color}"
-                        FontSize="Large"
-                        FontAttributes="Bold" />
+                        FontSize="Title"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Padding="20,0,0,0"/>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
 
                 <CollectionView.GroupFooterTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
-                   Margin="0,0,0,10" />
+                   Padding="250,0,0,0" />
                     </DataTemplate>
                 </CollectionView.GroupFooterTemplate>
 
@@ -93,7 +93,9 @@
                                 <Label Grid.Column="1"
                                        VerticalOptions="Center"
                                        Text="{Binding Name}"
-                                       FontAttributes="Bold" />
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       TextColor="Black"/>
                                 <Label Text="{Binding Price, StringFormat='{0:F2} €'}"
                                        Grid.Row="1"
                                        Grid.Column="1"
@@ -136,8 +138,6 @@
         -->
         
         <Button Text="Scanner un produit"
-            BackgroundColor="{StaticResource dominantColor}"
-            TextColor="Black"
             Clicked="ScanButton_Clicked"/>
 
     </StackLayout>

@@ -77,8 +77,15 @@ namespace SpeculPlus
             get => category;
             set
             {
+                if (product.Category != null)
+                {
+                    category.Remove(this);
+                    value.Add(product);
+                }
+
                 product.Category = value.Category;
                 category = value;
+
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Category"));
             }
         }

@@ -3,6 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpeculPlus.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="SegoeUI.ttf#Normal" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="SegoeUI.ttf#Normal" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="BackgroundColor" Value="#a8432f" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

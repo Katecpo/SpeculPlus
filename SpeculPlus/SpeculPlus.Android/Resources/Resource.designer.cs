@@ -5008,10 +5008,16 @@ namespace SpeculPlus.Droid
 			public const int notify_panel_notification_icon_bg = 2131165493;
 			
 			// aapt resource value: 0x7F070136
-			public const int tooltip_frame_dark = 2131165494;
+			public const int splash_logo = 2131165494;
 			
 			// aapt resource value: 0x7F070137
-			public const int tooltip_frame_light = 2131165495;
+			public const int splash_screen = 2131165495;
+			
+			// aapt resource value: 0x7F070138
+			public const int tooltip_frame_dark = 2131165496;
+			
+			// aapt resource value: 0x7F070139
+			public const int tooltip_frame_light = 2131165497;
 			
 			static Drawable()
 			{
