@@ -29,10 +29,14 @@ namespace SpeculPlus
             {
                 ProductViewModel productvm = new ProductViewModel(p);
                 productsL.Add(productvm);
-                productvm.Category = this;
             }
 
             products = new ProductsCategory(this, productsL);
+
+            foreach (ProductViewModel productvm in productsL)
+            {
+                productvm.Category = this;
+            }
         }
         #endregion
 
@@ -79,10 +83,13 @@ namespace SpeculPlus
         /// Ajoute un produit dans la catégorie
         /// </summary>
         /// <param name="p">Produit à ajouter</param>
-        public void Add(Product p)
+        public void Add(ProductViewModel p)
         {
-            category.Add(p);
-            products.Add(new ProductViewModel(p));
+            if (!category.Products.Contains(p.Product))
+            {
+                category.Add(p.Product);
+                products.Add(p);
+            }
         }
 
         /// <summary>

@@ -127,15 +127,12 @@
                 Clicked="DeleteButton_Clicked"/>
         </AbsoluteLayout>
         
-        <!--
-        <Button Text="Save"
-            BackgroundColor="DarkGray"
-            Clicked="SaveList"/>
         
-        <Button Text="Add"
-            BackgroundColor="DarkGray"
-            Clicked="AddProduct"/>
-        -->
+        <!--<Button Text="Save"
+            Clicked="SaveList"/>-->
+        
+        <!--<Button Text="Add"
+            Clicked="AddProduct"/>-->
         
         <Button Text="Scanner un produit"
             Clicked="ScanButton_Clicked"/>

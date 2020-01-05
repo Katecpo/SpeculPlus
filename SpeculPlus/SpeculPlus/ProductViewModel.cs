@@ -80,8 +80,8 @@ namespace SpeculPlus
                 if (product.Category != null)
                 {
                     category.Remove(this);
-                    value.Add(product);
                 }
+                value.Add(this);
 
                 product.Category = value.Category;
                 category = value;

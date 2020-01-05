@@ -41,25 +41,7 @@ namespace SpeculPlus
             listCat.ItemsSource = clvm.Categories;
             listCat.SelectedItem = p.Category;
 
-            // Charts
-            Microcharts.Entry[] entries = new Microcharts.Entry[5];
-            for (int i = 0; i < 5; i++)
-            {
-                entries[i] = new Microcharts.Entry(i)
-                {
-                    Label = "0" + i + "/02/2020",
-                    ValueLabel = "14",
-                    Color = SKColor.Parse("#266489")
-                };
-            }
-
-            var chart = new LineChart()
-            {
-                Entries = entries,
-                LineMode = LineMode.Spline,
-                PointMode = PointMode.Square
-            };
-            priceChart.Chart = chart;
+            DrawChart();
         }
 
         /// <summary>
@@ -85,7 +67,7 @@ namespace SpeculPlus
         {
             if (cvm != null)
             {
-                cvm.Add(p.Product);
+                cvm.Add(p);
             }
 
             p.Category = listCat.SelectedItem as CategoryViewModel;
@@ -94,5 +76,65 @@ namespace SpeculPlus
             await Navigation.PopToRootAsync();
         }
 
+        /// <summary>
+        /// Dessine le graphique
+        /// </summary>
+        private void DrawChart()
+        {
+            // Charts
+            Microcharts.Entry[] entries = new Microcharts.Entry[5];
+            for (int i = 0; i < 5; i++)
+            {
+                var rndm = new Random().Next(5, 30);
+
+                float avg = 0;
+                int length = 0;
+                foreach (var j in entries)
+                    if (j != null)
+                    {
+                        length += 1;
+                        avg += j.Value;
+                    }
+
+                avg /= length;
+
+                SKColor color;
+                if (rndm > avg * 1.25) // Bon
+                {
+                    color = SKColor.Parse("#196b3f");
+                }
+                else if (rndm > avg * 1.75) // Très bon
+                {
+                    color = SKColor.Parse("#00d964");
+                }
+                else if (rndm < avg * 0.75) // Mauvais
+                {
+                    color = SKColor.Parse("#d96500");
+                }
+                else if (rndm < avg * 0.25) // Très mauvais
+                {
+                    color = SKColor.Parse("#991700");
+                }
+                else // Moyenne
+                {
+                    color = SKColor.Parse("#266489");
+                }
+
+                entries[i] = new Microcharts.Entry(rndm)
+                {
+                    Label = "0" + i + "/02/2020",
+                    ValueLabel = rndm.ToString(),
+                    Color = color
+                };
+            }
+
+            var chart = new LineChart()
+            {
+                Entries = entries,
+                LineMode = LineMode.Straight,
+                PointMode = PointMode.Square
+            };
+            priceChart.Chart = chart;
+        }
     }
 }

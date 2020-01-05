@@ -17,7 +17,7 @@ namespace SpeculPlus
         {
             InitializeComponent();
 
-            storage = new JsonStorage("liste16");
+            storage = new JsonStorage("productlistf");
             cl = storage.Load();
             clvm = new CategoryListViewModel(cl);
 
@@ -58,22 +58,6 @@ namespace SpeculPlus
             };
         }
 
-        private void AddProduct(object sender, EventArgs e)
-        {
-            ProductViewModel p = new ProductViewModel(new Product());
-            p.Name = "Test produit";
-            p.Price = 6.5f;
-
-            if (clvm.Categories.Count == 0)
-            {
-                clvm.Add(new Category("Figurines", "Black"));
-                clvm.Add(new Category("Livres", "DarkGray"));
-                clvm.Add(new Category("Autres", "Cyan"));
-            }
-
-            clvm.DefaultCategory.Add(p.Product);
-        }
-
         private void SaveList(object sender, EventArgs e)
         {
             storage.Save();
@@ -110,6 +94,24 @@ namespace SpeculPlus
 
             curItem.Category.Remove(curItem);
             storage.Save();
+        }
+
+        private void AddProduct(object sender, EventArgs e)
+        {
+            ProductViewModel p = new ProductViewModel(new Product());
+            p.Name = "Test produit";
+            p.Price = 6.5f;
+
+            if (clvm.Categories.Count == 0)
+            {
+                clvm.Add(new Category("Figurines", "Black"));
+                clvm.Add(new Category("Livres", "DarkGray"));
+                clvm.Add(new Category("Musique", "White"));
+                clvm.Add(new Category("Autres", "Cyan"));
+            }
+
+            p.Category = clvm.DefaultCategory;
+            //clvm.DefaultCategory.Add(p.Product);
         }
 
         /*

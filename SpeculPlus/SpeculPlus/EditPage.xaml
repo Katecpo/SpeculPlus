@@ -26,15 +26,15 @@
             <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
                 <Label Margin="10,0,0,0" Text="Statistiques" FontAttributes="Bold" FontSize="Title" TextColor="Black" />
 
-                <Label Margin="10,0,0,0" Text="Amazon" />
+                <Label Margin="10,0,0,0" Text="Prix Amazon" />
                 <microcharts:ChartView HeightRequest="150" x:Name="priceChart" BackgroundColor="White" />
 
                 <Button
-                        VerticalOptions="EndAndExpand"
-                        FontSize="Medium"
-                        Text="Terminer"
-                        BackgroundColor="{StaticResource dominantColor}"
-                        Clicked="AddProduct_Clicked" />
+                    VerticalOptions="EndAndExpand"
+                    FontSize="Medium"
+                    Text="Terminer"
+                    BackgroundColor="{StaticResource dominantColor}"
+                    Clicked="AddProduct_Clicked" />
             </StackLayout>
 
             <!-- Informations du produit -->
