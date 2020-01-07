@@ -15,8 +15,6 @@ namespace SpeculPlus
         private IProductStorage storage;
         private CategoryViewModel cvm = null;
 
-
-
         /// <summary>
         /// A ne pas utiliser pour afficher la page
         /// </summary>
@@ -71,6 +69,13 @@ namespace SpeculPlus
             }
 
             p.Category = listCat.SelectedItem as CategoryViewModel;
+
+            // Si la quantité a été portée à 0 alors le produit est supprimé
+            if (p.Quantity == 0)
+            {
+                p.Category.Remove(p);
+            }
+
             storage.Save();
 
             await Navigation.PopToRootAsync();

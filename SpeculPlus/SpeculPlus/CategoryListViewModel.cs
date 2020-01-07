@@ -1,4 +1,6 @@
 ﻿using Logic;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -82,6 +84,36 @@ namespace SpeculPlus
             categoryList.Remove(c.Category);
             categoriesVm.Remove(c);
             productsCategory.Remove(c.Products);
+        }
+
+        /// <summary>
+        /// Retourne tous les produits de toutes les catégories
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductViewModel> GetAllProducts()
+        {
+            List<ProductViewModel> result = new List<ProductViewModel>();
+
+            foreach (var c in categoriesVm)
+                foreach (var p in c.Products)
+                    result.Add(p);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Créer les catégories par défaut si aucune catégorie n'est disponible
+        /// </summary>
+        public void CreateDefaultCategories()
+        {
+            if (Categories.Count == 0)
+            {
+                Add(new Category("Figurines", "Black"));
+                Add(new Category("Livres", "DarkGray"));
+                Add(new Category("Musique", "White"));
+                Add(new Category("Vêtements", "Yellow"));
+                Add(new Category("Autres", "Cyan"));
+            }
         }
         #endregion
     }

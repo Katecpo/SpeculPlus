@@ -91,6 +91,19 @@ namespace SpeculPlus
         }
 
         /// <summary>
+        /// La quantité du produit
+        /// </summary>
+        public int Quantity 
+        { 
+            get => product.Quantity;
+            set
+            {
+                product.Quantity = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Quantity"));
+            }
+        }
+
+        /// <summary>
         /// Le produit du vue-modèle
         /// </summary>
         public Product Product { get => product; }

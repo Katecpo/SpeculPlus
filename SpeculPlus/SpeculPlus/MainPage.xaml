@@ -30,11 +30,25 @@
 
     <StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="Mes produits" 
-                       Margin="8,8,8,0"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label 
+                    Grid.Column="0" 
+                    Text="Mes produits" 
+                      Margin="8,8,8,0"
                        FontSize="Medium"
                        TextColor="Black"
                        FontAttributes="Bold"/>
+                <SearchBar 
+                    Grid.Column="1" x:Name="searchBar"
+                   TextChanged="searchBar_TextChanged"
+                   Placeholder="Filtre"
+                   VerticalOptions="End" />
+            </Grid>
         </StackLayout>
 
         <AbsoluteLayout>
@@ -86,7 +100,7 @@
 
                             <Image Source="{Binding Image}"
                                    Grid.Row="0"
-                                   Aspect="AspectFill"
+                                   Aspect="AspectFit"
                                    WidthRequest="100"
                                    HeightRequest="150" />
                             <StackLayout Grid.Row="1">

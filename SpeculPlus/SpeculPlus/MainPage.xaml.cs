@@ -4,6 +4,7 @@ using ZXing.Net.Mobile.Forms;
 using Logic;
 using FileStorage;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SpeculPlus
 {
@@ -46,24 +47,39 @@ namespace SpeculPlus
                 // Pop the page and show the result
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    // Si aucune catégorie n'existe après le scan alors il faut créer celles par défaut
-                    if (clvm.Categories.Count == 0)
+                    string scannedBarcode = result.Text;
+
+                    // Crée les catégories par défaut si elles n'existent pas
+                    clvm.CreateDefaultCategories();
+
+                    // Si un produit a déjà ce code-barre alors on augmente juste sa quantité sinon on ajoute un nouveau produit
+                    ProductViewModel existingProduct;
+                    try
                     {
-                        clvm.Add(new Category("Figurines", "Black"));
-                        clvm.Add(new Category("Livres", "DarkGray"));
-                        clvm.Add(new Category("Musique", "White"));
-                        clvm.Add(new Category("Autres", "Cyan"));
+                        existingProduct = clvm.GetAllProducts().Single(i => i.Barcode == scannedBarcode);
+                    }
+                    catch (Exception)
+                    {
+                        existingProduct = null;
                     }
 
-                    // Création du produit après scan
-                    ProductViewModel p = new ProductViewModel(new Product())
+                    if (existingProduct != null)
                     {
-                        Barcode = result.Text,
-                        Name = "Nouveau produit",
-                        Category = clvm.DefaultCategory
-                    };
+                        existingProduct.Quantity += 1;
+                        await Navigation.PushAsync(new EditPage(existingProduct, storage, clvm)); // Montrer le produit existant
+                    } 
+                    else
+                    {
+                        // Création du produit après scan
+                        ProductViewModel p = new ProductViewModel(new Product())
+                        {
+                            Barcode = scannedBarcode,
+                            Name = "Nouveau produit",
+                            Category = clvm.DefaultCategory
+                        };
 
-                    await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory, clvm));
+                        await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory, clvm)); // Editer le nouveau produit
+                    }
                 });
             };
         }
@@ -122,6 +138,19 @@ namespace SpeculPlus
 
             p.Category = clvm.DefaultCategory;
             //clvm.DefaultCategory.Add(p.Product);
+        }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchBar.Text != "")
+            {
+                var productsSearched = clvm.GetAllProducts().Where(c => c.Name.Contains(searchBar.Text));
+                listeProduits.ItemsSource = productsSearched;
+            }
+            else
+            {
+                listeProduits.ItemsSource = clvm.ProductsCategory;
+            }
         }
 
         /*

@@ -12,6 +12,7 @@ namespace Logic
         [DataMember] private float price;
         [DataMember] private string image;
         [DataMember] private string barcode;
+        [DataMember] private int quantity;
         private Category category;
 
         /// <summary>
@@ -24,6 +25,7 @@ namespace Logic
             image = "barcode";
             barcode = "";
             category = null;
+            quantity = 1;
         }
 
         /// <summary>
@@ -76,5 +78,10 @@ namespace Logic
             get => category;
             set => category = value;
         }
+
+        /// <summary>
+        /// La quantité du produit
+        /// </summary>
+        public int Quantity { get => quantity; set => quantity = value; }
     }
 }
