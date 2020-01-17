@@ -1,6 +1,5 @@
 ﻿using Logic;
 using System;
-using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microcharts;
@@ -16,19 +15,13 @@ namespace SpeculPlus
         private CategoryViewModel cvm = null;
 
         /// <summary>
-        /// A ne pas utiliser pour afficher la page
-        /// </summary>
-		public EditPage ()
-		{
-			InitializeComponent ();
-		}
-
-        /// <summary>
         /// Éditer un produit déjà présent dans la liste de produits
         /// </summary>
         /// <param name="p">Le vue/modèle du produit à modifer</param>
         /// <param name="storage">Le stockage à utiliser</param>
-        public EditPage(ProductViewModel p, IProductStorage storage, CategoryListViewModel clvm)
+        /// <param name="clvm">La liste de catégories</param>
+        /// <param name="cvm">La catégorie à laquelle ajouter le produit</param>
+        public EditPage(ProductViewModel p, IProductStorage storage, CategoryListViewModel clvm, CategoryViewModel cvm = null)
         {
             InitializeComponent();
 
@@ -38,27 +31,11 @@ namespace SpeculPlus
 
             listCat.ItemsSource = clvm.Categories;
             listCat.SelectedItem = p.Category;
+
+            if (cvm != null)
+                this.cvm = cvm;
 
             DrawChart();
-        }
-
-        /// <summary>
-        /// Modifie un produit qui n'est pas encore dans la liste de produit
-        /// </summary>
-        /// <param name="p">Le vue/modèle du produit à modifer</param>
-        /// <param name="storage">Le stockage à utiliser</param>
-        /// <param name="clvm">Le vue/modèle de la liste de catégories à laquelle ajouter le produit</param>
-        public EditPage(ProductViewModel p, IProductStorage storage, CategoryViewModel cvm, CategoryListViewModel clvm)
-        {
-            InitializeComponent();
-
-            this.p = p;
-            BindingContext = this.p;
-            this.storage = storage;
-            this.cvm = p.Category;
-
-            listCat.ItemsSource = clvm.Categories;
-            listCat.SelectedItem = p.Category;
         }
 
         private async void AddProduct_Clicked(object sender, EventArgs e)
@@ -140,6 +117,16 @@ namespace SpeculPlus
                 PointMode = PointMode.Square
             };
             priceChart.Chart = chart;
+        }
+
+        private void AddCategory_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Picture_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

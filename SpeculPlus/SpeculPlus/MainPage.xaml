@@ -28,6 +28,7 @@
         </Style>
     </ContentPage.Resources>
 
+    <!-- Entête de page -->
     <StackLayout>
         <StackLayout Orientation="Horizontal">
             <Grid>
@@ -45,12 +46,13 @@
                        FontAttributes="Bold"/>
                 <SearchBar 
                     Grid.Column="1" x:Name="searchBar"
-                   TextChanged="searchBar_TextChanged"
+                   TextChanged="filter_TextChanged"
                    Placeholder="Filtre"
                    VerticalOptions="End" />
             </Grid>
         </StackLayout>
 
+        <!-- Liste des catégories -->
         <AbsoluteLayout>
             <CollectionView x:Name="listeProduits" SelectionMode="Single" ItemsSource="{Binding ProductsCategory}" IsGrouped="True" SelectionChanged="listeProduits_SelectionChanged" >
                 <CollectionView.ItemsLayout>
@@ -73,23 +75,34 @@
                     </StackLayout>
                 </CollectionView.EmptyView>
 
+                <!-- Entête de catégorie -->
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding Name}"
-                        FontSize="Title"
-                        TextColor="Black"
-                        FontAttributes="Bold"
-                        Padding="20,0,0,0"/>
+                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" BackgroundColor="Transparent">
+                            <Button ImageSource="{Binding StateIcon}"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="Transparent"
+                                    BorderWidth="0"
+                                    Clicked="HeaderTapped"
+                                    CommandParameter="{Binding .}" />
+                            <Label Text="{Binding NameWithItemCount}"
+                                       VerticalOptions="Center"
+                                       FontSize="Title"
+                                       TextColor="Black"
+                                       FontAttributes="Bold"/>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
 
-                <CollectionView.GroupFooterTemplate>
+                <!-- Pied de catégorie -->
+                <!--<CollectionView.GroupFooterTemplate>
                     <DataTemplate>
                         <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
                    Padding="250,0,0,0" />
                     </DataTemplate>
-                </CollectionView.GroupFooterTemplate>
+                </CollectionView.GroupFooterTemplate>-->
 
+                <!-- Contenu de catégorie -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10" Margin="12">
@@ -101,8 +114,8 @@
                             <Image Source="{Binding Image}"
                                    Grid.Row="0"
                                    Aspect="AspectFit"
-                                   WidthRequest="100"
-                                   HeightRequest="150" />
+                                   WidthRequest="25"
+                                   HeightRequest="50" />
                             <StackLayout Grid.Row="1">
                                 <Label Grid.Column="1"
                                        VerticalOptions="Center"
@@ -121,6 +134,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!-- Pied de page -->
             <ImageButton 
                 x:Name="EditButton"   
                 Source="EditButton" 

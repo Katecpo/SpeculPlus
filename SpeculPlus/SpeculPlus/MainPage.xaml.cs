@@ -5,6 +5,7 @@ using Logic;
 using FileStorage;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace SpeculPlus
 {
@@ -13,6 +14,7 @@ namespace SpeculPlus
         private IProductStorage storage;
         private CategoryList cl;
         private CategoryListViewModel clvm;
+        private ObservableCollection<ProductsCategory> _expandedGroups;
 
         public MainPage()
         {
@@ -23,8 +25,11 @@ namespace SpeculPlus
             clvm = new CategoryListViewModel(cl);
 
             BindingContext = clvm;
+
+            UpdateListContent();
         }
 
+        #region Events
         private async void ScanButton_Clicked(object sender, EventArgs e)
         {
             var overlay = new ZXingDefaultOverlay
@@ -78,7 +83,7 @@ namespace SpeculPlus
                             Category = clvm.DefaultCategory
                         };
 
-                        await Navigation.PushAsync(new EditPage(p, storage, clvm.DefaultCategory, clvm)); // Editer le nouveau produit
+                        await Navigation.PushAsync(new EditPage(p, storage, clvm, clvm.DefaultCategory)); // Editer le nouveau produit
                     }
                 });
             };
@@ -140,7 +145,7 @@ namespace SpeculPlus
             //clvm.DefaultCategory.Add(p.Product);
         }
 
-        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        private void filter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (searchBar.Text != "")
             {
@@ -153,14 +158,44 @@ namespace SpeculPlus
             }
         }
 
-        /*
-        private void Supprimer_Item(object sender, EventArgs e)
+        private void HeaderTapped(object sender, EventArgs e)
         {
-            var ItemTapped = ((sender as MenuItem).BindingContext as ProductViewModel);
+            // New page
+            int selectedIndex = _expandedGroups.IndexOf(
+                ((ProductsCategory)((Button)sender).CommandParameter));
+            clvm.ProductsCategory[selectedIndex].Expanded = !clvm.ProductsCategory[selectedIndex].Expanded;
 
-            storage.Delete(ItemTapped.Product);
-            plvm.Remove(ItemTapped);
+            UpdateListContent();
         }
-        */
+
+        protected override void OnAppearing()
+        {
+            UpdateListContent();
+        }
+        #endregion
+
+        #region Methods
+
+
+        /// <summary>
+        /// Met à jour la liste de produits
+        /// </summary>
+        private void UpdateListContent()
+        {
+            _expandedGroups = new ObservableCollection<ProductsCategory>();
+            foreach (ProductsCategory category in clvm.ProductsCategory)
+            {
+                ProductsCategory newCat = new ProductsCategory(category.Parent, new List<ProductViewModel>(), category.Expanded);
+                newCat.ProductCount = category.Count;
+
+                if (category.Expanded)
+                    foreach (ProductViewModel p in category)
+                        newCat.Add(p);
+
+                _expandedGroups.Add(newCat);
+            }
+            listeProduits.ItemsSource = _expandedGroups;
+        }
+        #endregion
     }
 }
