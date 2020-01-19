@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using Xamarin.Forms;
 
@@ -15,6 +16,7 @@ namespace Logic
         [DataMember] private string imagePath;
         [DataMember] private string barcode;
         [DataMember] private int quantity;
+        [DataMember] private Dictionary<string, float> priceEvolution;
         private Category category;
 
         /// <summary>
@@ -28,11 +30,19 @@ namespace Logic
             barcode = "";
             category = null;
             quantity = 1;
+            priceEvolution = new Dictionary<string, float>();
         }
 
         ~Product()
         {
-            File.Delete(imagePath);
+            try
+            {
+                File.Delete(imagePath);
+            }
+            catch (System.Exception)
+            {
+                // Nothing
+            }
         }
 
         /// <summary>
@@ -99,12 +109,17 @@ namespace Logic
             get => imagePath; 
             set
             {
-                if (imagePath != value)
+                if (imagePath != value && imagePath != "")
                 {
                     File.Delete(imagePath);
-                    imagePath = value;
                 }
+                imagePath = value;
             }
         }
+
+        /// <summary>
+        /// Liste de valeurs du prix du produit
+        /// </summary>
+        public Dictionary<string, float> PriceEvolution { get => priceEvolution; set => priceEvolution = value; }
     }
 }

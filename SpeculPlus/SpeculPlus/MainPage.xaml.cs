@@ -6,7 +6,6 @@ using FileStorage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace SpeculPlus
 {
@@ -97,22 +96,27 @@ namespace SpeculPlus
 
         private void listeProduits_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*listeProduits.SelectedItem = null;
-            EditButton.IsVisible = DeleteButton.IsVisible = false;*/
+            if (listeProduits.SelectedItem != null)
+            {
+                EditButton.IsVisible = DeleteButton.IsVisible = true;
 
-            EditButton.IsVisible = DeleteButton.IsVisible = true;
-
-            var animationEdit = new Animation(callback: d => EditButton.Rotation = d,
-                                  start: EditButton.Rotation,
-                                  end: EditButton.Rotation + 360,
-                                  easing: Easing.SpringOut);
-            animationEdit.Commit(EditButton, "Loop", length: 800);
-
-            var animationDelete = new Animation(callback: d => DeleteButton.Rotation = d,
-                                      start: DeleteButton.Rotation,
-                                      end: DeleteButton.Rotation + 360,
+                var animationEdit = new Animation(callback: d => EditButton.Rotation = d,
+                                      start: EditButton.Rotation,
+                                      end: EditButton.Rotation + 360,
                                       easing: Easing.SpringOut);
-            animationDelete.Commit(DeleteButton, "Loop", length: 800);
+                animationEdit.Commit(EditButton, "Loop", length: 800);
+
+                var animationDelete = new Animation(callback: d => DeleteButton.Rotation = d,
+                                          start: DeleteButton.Rotation,
+                                          end: DeleteButton.Rotation + 360,
+                                          easing: Easing.SpringOut);
+                animationDelete.Commit(DeleteButton, "Loop", length: 800);
+            } 
+            else
+            {
+                EditButton.IsVisible = DeleteButton.IsVisible = false;
+            }
+            
         }
 
         private async void EditButton_Clicked(object sender, EventArgs e)
@@ -262,5 +266,10 @@ namespace SpeculPlus
             listeProduits.ItemsSource = _expandedGroups;
         }
         #endregion
+
+        private void ResetCollectionTapped(object sender, EventArgs e)
+        {
+            listeProduits.SelectedItem = null;
+        }
     }
 }

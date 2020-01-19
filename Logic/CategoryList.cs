@@ -10,7 +10,7 @@ namespace Logic
     public class CategoryList
     {
         [DataMember] private List<Category> categories;
-        [DataMember] private string defaultCategory;
+        [DataMember] private Category defaultCategory;
 
         /// <summary>
         /// Crée une liste de catégories de produits
@@ -46,6 +46,6 @@ namespace Logic
         /// <summary>
         /// La catégorie par défaut à laquelle sont ajoutés les nouveaux produits
         /// </summary>
-        public string DefaultCategory { get => defaultCategory; set => defaultCategory = value; }
+        public Category DefaultCategory { get => defaultCategory; set => defaultCategory = value; }
     }
 }

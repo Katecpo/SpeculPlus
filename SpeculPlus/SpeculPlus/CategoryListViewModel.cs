@@ -50,11 +50,11 @@ namespace SpeculPlus
         {
             get
             {
-                return categoriesVm.Single(i => i.Name == categoryList.DefaultCategory);
+                return categoriesVm.Single(i => i.Name == categoryList.DefaultCategory.Name);
             }
             set
             {
-                categoryList.DefaultCategory = value.Name;
+                categoryList.DefaultCategory = value.Category;
             }
         }
 
@@ -87,6 +87,10 @@ namespace SpeculPlus
             categoryList.Remove(c.Category);
             categoriesVm.Remove(c);
             productsCategory.Remove(c.Products);
+
+            // Handle default categories or it will crash
+            if (categoriesVm.Count != 0)
+                DefaultCategory = categoriesVm[0];
         }
 
         /// <summary>
@@ -113,6 +117,10 @@ namespace SpeculPlus
             {
                 Category c = new Category("Nouvelle catégorie", "Black");
                 Add(c);
+                DefaultCategory = categoriesVm[0];
+            } 
+            else if (DefaultCategory == null)
+            {
                 DefaultCategory = categoriesVm[0];
             }
         }

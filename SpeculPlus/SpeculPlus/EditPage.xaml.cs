@@ -2,9 +2,8 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Microcharts;
-using SkiaSharp;
 using Plugin.Media;
+using System.Linq;
 
 namespace SpeculPlus
 {
@@ -37,8 +36,6 @@ namespace SpeculPlus
 
             if (cvm != null)
                 this.cvm = cvm;
-
-            DrawChart();
         }
 
         private async void AddProduct_Clicked(object sender, EventArgs e)
@@ -59,67 +56,6 @@ namespace SpeculPlus
             storage.Save();
 
             await Navigation.PopToRootAsync();
-        }
-
-        /// <summary>
-        /// Dessine le graphique
-        /// </summary>
-        private void DrawChart()
-        {
-            // Charts
-            Microcharts.Entry[] entries = new Microcharts.Entry[5];
-            for (int i = 0; i < 5; i++)
-            {
-                var rndm = new Random().Next(5, 30);
-
-                float avg = 0;
-                int length = 0;
-                foreach (var j in entries)
-                    if (j != null)
-                    {
-                        length += 1;
-                        avg += j.Value;
-                    }
-
-                avg /= length;
-
-                SKColor color;
-                if (rndm > avg * 1.25) // Bon
-                {
-                    color = SKColor.Parse("#196b3f");
-                }
-                else if (rndm > avg * 1.75) // Très bon
-                {
-                    color = SKColor.Parse("#00d964");
-                }
-                else if (rndm < avg * 0.75) // Mauvais
-                {
-                    color = SKColor.Parse("#d96500");
-                }
-                else if (rndm < avg * 0.25) // Très mauvais
-                {
-                    color = SKColor.Parse("#991700");
-                }
-                else // Moyenne
-                {
-                    color = SKColor.Parse("#266489");
-                }
-
-                entries[i] = new Microcharts.Entry(rndm)
-                {
-                    Label = "0" + i + "/02/2020",
-                    ValueLabel = rndm.ToString(),
-                    Color = color
-                };
-            }
-
-            var chart = new LineChart()
-            {
-                Entries = entries,
-                LineMode = LineMode.Straight,
-                PointMode = PointMode.Square
-            };
-            priceChart.Chart = chart;
         }
 
         private async void AddCategory_Clicked(object sender, EventArgs e)
@@ -167,12 +103,38 @@ namespace SpeculPlus
 
             if (file == null)
                 return;
-
+            
             //await DisplayAlert("File Location", file.Path, "OK");
 
             p.ImagePath = file.Path;
 
             storage.Save();
+        }
+
+        private void AddPrice_Clicked(object sender, EventArgs e)
+        {
+            popupAddPrice.IsVisible = true;
+        }
+
+        private void PopupTapped(object sender, EventArgs e)
+        {
+            popupAddPrice.IsVisible = false;
+        }
+
+        private async void AddPricePopup_Clicked(object sender, EventArgs e)
+        {
+            if (priceDate.Date.ToString() != "" && pricePopup.Text != "")
+            {
+                var pe = p.PriceEvolution;
+                pe.Add(priceDate.Date.ToString("dd/MM/yyyy"), float.Parse(pricePopup.Text));
+                p.PriceEvolution = pe;
+
+                popupAddPrice.IsVisible = false;
+            }
+            else 
+            {
+                await DisplayAlert("Échec", "Vous devez remplir les champs afin d'ajouter un prix", "Ok");
+            }
         }
     }
 }
