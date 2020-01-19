@@ -1,11 +1,7 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Plugin.CurrentActivity;
 
 namespace SpeculPlus.Droid
 {
@@ -19,6 +15,9 @@ namespace SpeculPlus.Droid
 
             base.OnCreate(savedInstanceState);
 
+            // Camera init
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
             // ZXing init
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
@@ -28,7 +27,7 @@ namespace SpeculPlus.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            
+            Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

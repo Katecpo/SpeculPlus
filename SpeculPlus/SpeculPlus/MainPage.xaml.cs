@@ -6,6 +6,7 @@ using FileStorage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace SpeculPlus
 {
@@ -125,6 +126,8 @@ namespace SpeculPlus
 
             curItem.Category.Remove(curItem);
             storage.Save();
+
+            UpdateListContent();
         }
 
         private void AddProduct(object sender, EventArgs e)
@@ -143,6 +146,8 @@ namespace SpeculPlus
 
             p.Category = clvm.DefaultCategory;
             //clvm.DefaultCategory.Add(p.Product);
+
+            UpdateListContent();
         }
 
         private void filter_TextChanged(object sender, TextChangedEventArgs e)
@@ -172,11 +177,31 @@ namespace SpeculPlus
         {
             UpdateListContent();
         }
+
+        private async void CategoryNameTapped(object sender, EventArgs e)
+        {
+            string action = await DisplayActionSheet("Catégorie " + ((ProductsCategory)((Label)sender).BindingContext).Parent.Name, "Retour", "Supprimer");
+
+            switch (action)
+            {
+                case "Supprimer":
+                    CategoryViewModel catSelected = ((ProductsCategory)((Label)sender).BindingContext).Parent;
+
+                    string confirm = await DisplayActionSheet("Êtes-vous sûr ?", "Non", "Oui");
+
+                    if (confirm == "Oui")
+                    {
+                        clvm.Remove(catSelected);
+                        UpdateListContent();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
 
         #region Methods
-
-
         /// <summary>
         /// Met à jour la liste de produits
         /// </summary>

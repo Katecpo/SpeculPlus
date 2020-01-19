@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.IO;
+using System.Runtime.Serialization;
+using Xamarin.Forms;
 
 namespace Logic
 {
@@ -10,7 +12,7 @@ namespace Logic
     {
         [DataMember] private string name;
         [DataMember] private float price;
-        [DataMember] private string image;
+        [DataMember] private string imagePath;
         [DataMember] private string barcode;
         [DataMember] private int quantity;
         private Category category;
@@ -22,10 +24,15 @@ namespace Logic
         {
             name = "";
             price = 0f;
-            image = "barcode";
+            imagePath = "";
             barcode = "";
             category = null;
             quantity = 1;
+        }
+
+        ~Product()
+        {
+            File.Delete(imagePath);
         }
 
         /// <summary>
@@ -62,12 +69,17 @@ namespace Logic
         }
 
         /// <summary>
-        /// L'image du produit
+        /// Le chemin vers l'image du produit
         /// </summary>
-        public string Image
+        public ImageSource ImageSource
         {
-            get => image;
-            set => image = value;
+            get 
+            {
+                if (ImagePath != "")
+                    return ImageSource.FromFile(imagePath);
+
+                return "barcode";
+            }
         }
 
         /// <summary>
@@ -83,5 +95,16 @@ namespace Logic
         /// La quantité du produit
         /// </summary>
         public int Quantity { get => quantity; set => quantity = value; }
+        public string ImagePath { 
+            get => imagePath; 
+            set
+            {
+                if (imagePath != value)
+                {
+                    File.Delete(imagePath);
+                    imagePath = value;
+                }
+            }
+        }
     }
 }

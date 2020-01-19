@@ -10,7 +10,7 @@
             <Color x:Key="mainColor">#ff8c75</Color>
             <Color x:Key="dominantColor">#a8432f</Color>
         </ResourceDictionary>
-        
+
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -28,143 +28,148 @@
         </Style>
     </ContentPage.Resources>
 
-    <!-- Entête de page -->
-    <StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="6*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+    <ContentPage.Content>
+        <!-- Entête de page -->
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <Label 
-                    Grid.Column="0" 
-                    Text="Mes produits" 
-                      Margin="8,8,8,0"
-                       FontSize="Medium"
-                       TextColor="Black"
-                       FontAttributes="Bold"/>
-                <SearchBar 
-                    Grid.Column="1" x:Name="searchBar"
-                   TextChanged="filter_TextChanged"
-                   Placeholder="Filtre"
-                   VerticalOptions="End" />
-            </Grid>
-        </StackLayout>
+                    <Label 
+                        Grid.Column="0" 
+                        Text="Mes produits" 
+                          Margin="8,8,8,0"
+                           FontSize="Medium"
+                           TextColor="Black"
+                           FontAttributes="Bold"/>
+                    <SearchBar 
+                        Grid.Column="1" x:Name="searchBar"
+                       TextChanged="filter_TextChanged"
+                       Placeholder="Filtre"
+                       VerticalOptions="End" />
+                </Grid>
+            </StackLayout>
 
-        <!-- Liste des catégories -->
-        <AbsoluteLayout>
-            <CollectionView x:Name="listeProduits" SelectionMode="Single" ItemsSource="{Binding ProductsCategory}" IsGrouped="True" SelectionChanged="listeProduits_SelectionChanged" >
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
-                </CollectionView.ItemsLayout>
+            <!-- Liste des catégories -->
+            <AbsoluteLayout>
+                <CollectionView x:Name="listeProduits" SelectionMode="Single" ItemsSource="{Binding ProductsCategory}" IsGrouped="True" SelectionChanged="listeProduits_SelectionChanged" >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                    </CollectionView.ItemsLayout>
 
-                <CollectionView.EmptyView>
-                    <StackLayout>
-                        <Label Text="Aucun produit :-("
-                       Margin="10,25,10,10"
-                       FontAttributes="Bold"
-                       FontSize="18"
-                       HorizontalOptions="Fill"
-                       HorizontalTextAlignment="Center" />
-                        <Label Text="Lancez-vous, scannez!"
-                       FontAttributes="Italic"
-                       FontSize="12"
-                       HorizontalOptions="Fill"
-                       HorizontalTextAlignment="Center" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
-
-                <!-- Entête de catégorie -->
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" BackgroundColor="Transparent">
-                            <Button ImageSource="{Binding StateIcon}"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="Transparent"
-                                    BorderWidth="0"
-                                    Clicked="HeaderTapped"
-                                    CommandParameter="{Binding .}" />
-                            <Label Text="{Binding NameWithItemCount}"
-                                       VerticalOptions="Center"
-                                       FontSize="Title"
-                                       TextColor="Black"
-                                       FontAttributes="Bold"/>
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label Text="Aucun produit :-("
+                           Margin="10,25,10,10"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
+                            <Label Text="Lancez-vous, scannez!"
+                           FontAttributes="Italic"
+                           FontSize="12"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
                         </StackLayout>
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
+                    </CollectionView.EmptyView>
 
-                <!-- Pied de catégorie -->
-                <!--<CollectionView.GroupFooterTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
-                   Padding="250,0,0,0" />
-                    </DataTemplate>
-                </CollectionView.GroupFooterTemplate>-->
-
-                <!-- Contenu de catégorie -->
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" Margin="12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*" />
-                                <RowDefinition Height="1*" />
-                            </Grid.RowDefinitions>
-
-                            <Image Source="{Binding Image}"
-                                   Grid.Row="0"
-                                   Aspect="AspectFit"
-                                   WidthRequest="25"
-                                   HeightRequest="50" />
-                            <StackLayout Grid.Row="1">
-                                <Label Grid.Column="1"
-                                       VerticalOptions="Center"
-                                       Text="{Binding Name}"
-                                       FontAttributes="Bold"
-                                       FontSize="Medium"
-                                       TextColor="Black"/>
-                                <Label Text="{Binding Price, StringFormat='{0:F2} €'}"
-                                       Grid.Row="1"
-                                       Grid.Column="1"
-                                       VerticalOptions="Start"
-                                       FontAttributes="Italic" />
+                    <!-- Entête de catégorie -->
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Padding="0,0,0,0" BackgroundColor="Transparent">
+                                <Button ImageSource="{Binding StateIcon}"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        BorderWidth="0"
+                                        Clicked="HeaderTapped"
+                                        CommandParameter="{Binding .}" />
+                                <Label Text="{Binding NameWithItemCount}"
+                                           VerticalOptions="Center"
+                                           FontSize="Title"
+                                           TextColor="Black"
+                                           FontAttributes="Bold">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="CategoryNameTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
 
-            <!-- Pied de page -->
-            <ImageButton 
-                x:Name="EditButton"   
-                Source="EditButton" 
-                BackgroundColor="Transparent"
-                AbsoluteLayout.LayoutFlags="PositionProportional"  
-                AbsoluteLayout.LayoutBounds=".7,.95,80,80"
-                Scale="0.8"
-                IsVisible="False"
-                Clicked="EditButton_Clicked"/>
-            <ImageButton 
-                x:Name="DeleteButton"   
-                Source="DeleteButton" 
-                BackgroundColor="Transparent"
-                AbsoluteLayout.LayoutFlags="PositionProportional"  
-                AbsoluteLayout.LayoutBounds=".95,.95,80,80"
-                Scale="0.8"
-                IsVisible="False"
-                Clicked="DeleteButton_Clicked"/>
-        </AbsoluteLayout>
-        
-        
-        <!--<Button Text="Save"
-            Clicked="SaveList"/>-->
-        
-        <!--<Button Text="Add"
-            Clicked="AddProduct"/>-->
-        
-        <Button Text="Scanner un produit"
-            Clicked="ScanButton_Clicked"/>
+                    <!-- Pied de catégorie -->
+                    <!--<CollectionView.GroupFooterTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Count, StringFormat='Nombre de produits: {0:D}'}"
+                       Padding="250,0,0,0" />
+                        </DataTemplate>
+                    </CollectionView.GroupFooterTemplate>-->
 
-    </StackLayout>
+                    <!-- Contenu de catégorie -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" Margin="12">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
 
+                                <Image Source="{Binding ImageSource}"
+                                       Grid.Row="0"
+                                       Aspect="AspectFit"
+                                       WidthRequest="25"
+                                       HeightRequest="50" />
+                                <StackLayout Grid.Row="1">
+                                    <Label Grid.Column="1"
+                                           VerticalOptions="Center"
+                                           Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           TextColor="Black"/>
+                                    <Label Text="{Binding Price, StringFormat='{0:F2} €'}"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           VerticalOptions="Start"
+                                           FontAttributes="Italic" />
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Pied de page -->
+                <ImageButton 
+                    x:Name="EditButton"   
+                    Source="EditButton" 
+                    BackgroundColor="Transparent"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"  
+                    AbsoluteLayout.LayoutBounds=".7,.95,80,80"
+                    Scale="0.8"
+                    IsVisible="False"
+                    Clicked="EditButton_Clicked"/>
+                <ImageButton 
+                    x:Name="DeleteButton"   
+                    Source="DeleteButton" 
+                    BackgroundColor="Transparent"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"  
+                    AbsoluteLayout.LayoutBounds=".95,.95,80,80"
+                    Scale="0.8"
+                    IsVisible="False"
+                    Clicked="DeleteButton_Clicked"/>
+            </AbsoluteLayout>
+
+
+            <!--<Button Text="Save"
+                Clicked="SaveList"/>-->
+
+            <!--<Button Text="Add"
+                Clicked="AddProduct"/>-->
+
+            <Button Text="Scanner un produit"
+                Clicked="ScanButton_Clicked"/>
+
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using Logic;
 using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace SpeculPlus
 {
@@ -57,16 +58,24 @@ namespace SpeculPlus
         }
 
         /// <summary>
-        /// L'image du produit
+        /// Le chemin de l'image du produit
         /// </summary>
-        public string Image
+        public string ImagePath
         {
-            get => product.Image;
+            get => product.ImagePath;
             set
             {
-                product.Image = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Image"));
+                product.ImagePath = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ImagePath"));
             }
+        }
+
+        /// <summary>
+        /// L'image du produit
+        /// </summary>
+        public ImageSource ImageSource
+        {
+            get => product.ImageSource;
         }
 
         /// <summary>

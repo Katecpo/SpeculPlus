@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microcharts;
 using SkiaSharp;
+using Plugin.Media;
 
 namespace SpeculPlus
 {
@@ -13,6 +14,7 @@ namespace SpeculPlus
         private ProductViewModel p = null;
         private IProductStorage storage;
         private CategoryViewModel cvm = null;
+        private CategoryListViewModel clvm = null;
 
         /// <summary>
         /// Éditer un produit déjà présent dans la liste de produits
@@ -28,6 +30,7 @@ namespace SpeculPlus
             this.p = p;
             BindingContext = this.p;
             this.storage = storage;
+            this.clvm = clvm;
 
             listCat.ItemsSource = clvm.Categories;
             listCat.SelectedItem = p.Category;
@@ -119,14 +122,54 @@ namespace SpeculPlus
             priceChart.Chart = chart;
         }
 
-        private void AddCategory_Clicked(object sender, EventArgs e)
+        private async void AddCategory_Clicked(object sender, EventArgs e)
         {
+            string newCategoryName = await DisplayPromptAsync("Nouvelle catégorie", "Quel devra être le nom de votre nouvelle catégorie ?", "Créer", "Annuler", "Nom de catégorie");
 
+            if (newCategoryName != null)
+            {
+                bool canCreate = true;
+
+                foreach (var c in clvm.Categories)
+                    if (c.Name == newCategoryName)
+                        canCreate = false;
+
+                if (canCreate)
+                {
+                    clvm.Add(new Category(newCategoryName, "black"));
+                }
+                else
+                {
+                    await DisplayAlert("Échec", "Cette catégorie existe déjà !", "Zut");
+                }
+            }
         }
 
-        private void Picture_Clicked(object sender, EventArgs e)
+        private async void Picture_Clicked(object sender, EventArgs e)
         {
+            await CrossMedia.Current.Initialize();
 
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await DisplayAlert("Pas de caméra", ":( aucune caméra n'est disponible.", "OK");
+                return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                Directory = "ProductsImages",
+                Name = p.GetHashCode() + ".jpg",
+                AllowCropping = true,
+                CompressionQuality = 80
+                //PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+            });
+
+            if (file == null)
+                return;
+
+            //await DisplayAlert("File Location", file.Path, "OK");
+
+            p.ImagePath = file.Path;
         }
     }
 }

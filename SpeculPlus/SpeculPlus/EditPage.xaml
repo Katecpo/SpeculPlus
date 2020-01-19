@@ -10,16 +10,16 @@
             <Color x:Key="dominantColor">#a8432f</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <StackLayout Grid.Column="0">
-                <ImageButton Margin="0,0,0,0" Scale="0.8" Source="{Binding Image}" BackgroundColor="Transparent" Clicked="Picture_Clicked"/>
+                <ImageButton Aspect="AspectFit" MinimumHeightRequest="100" x:Name="productImage" Margin="0,0,0,0" Scale="0.8" Source="{Binding ImageSource}" BackgroundColor="Transparent" Clicked="Picture_Clicked"/>
             </StackLayout>
 
             <!-- Statistiques -->
@@ -32,7 +32,7 @@
                     <Stepper Grid.Row="1" Grid.Column="1" Value="{Binding Quantity}" Minimum="0" Maximum="100000"  Increment="1" />
                 </Grid>
 
-                    <Label Margin="10,0,0,0" Text="Évolution des prix" />
+                <Label Margin="10,0,0,0" Text="Évolution des prix" />
                 <microcharts:ChartView HeightRequest="150" x:Name="priceChart" BackgroundColor="White" />
 
                 <Button
@@ -67,7 +67,6 @@
                     </Grid>
                 </Grid>
             </StackLayout>
-            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
