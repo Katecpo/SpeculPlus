@@ -46,7 +46,7 @@
                            TextColor="Black"
                            FontAttributes="Bold"/>
                     <SearchBar 
-                        Grid.Column="1" x:Name="searchBar"
+                       Grid.Column="1" x:Name="searchBar"
                        TextChanged="filter_TextChanged"
                        Placeholder="Filtre"
                        VerticalOptions="End" />

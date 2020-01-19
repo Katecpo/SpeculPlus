@@ -137,6 +137,7 @@ namespace SpeculPlus
                 if (canCreate)
                 {
                     clvm.Add(new Category(newCategoryName, "black"));
+                    storage.Save();
                 }
                 else
                 {
@@ -170,6 +171,8 @@ namespace SpeculPlus
             //await DisplayAlert("File Location", file.Path, "OK");
 
             p.ImagePath = file.Path;
+
+            storage.Save();
         }
     }
 }

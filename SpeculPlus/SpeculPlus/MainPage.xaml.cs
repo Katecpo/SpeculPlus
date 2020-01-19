@@ -136,16 +136,9 @@ namespace SpeculPlus
             p.Name = "Test produit";
             p.Price = 6.5f;
 
-            if (clvm.Categories.Count == 0)
-            {
-                clvm.Add(new Category("Figurines", "Black"));
-                clvm.Add(new Category("Livres", "DarkGray"));
-                clvm.Add(new Category("Musique", "White"));
-                clvm.Add(new Category("Autres", "Cyan"));
-            }
+            clvm.CreateDefaultCategories();
 
             p.Category = clvm.DefaultCategory;
-            //clvm.DefaultCategory.Add(p.Product);
 
             UpdateListContent();
         }
@@ -154,8 +147,23 @@ namespace SpeculPlus
         {
             if (searchBar.Text != "")
             {
-                var productsSearched = clvm.GetAllProducts().Where(c => c.Name.Contains(searchBar.Text));
-                listeProduits.ItemsSource = productsSearched;
+                // new cats
+                var _searchedGroups = new ObservableCollection<ProductsCategory>();
+                foreach (ProductsCategory category in clvm.ProductsCategory)
+                {
+                    ProductsCategory newCat = new ProductsCategory(category.Parent, new List<ProductViewModel>(), category.Expanded)
+                    {
+                        ProductCount = category.Count
+                    };
+
+                    if (category.Expanded)
+                        foreach (var p in category)
+                            if (p.Name.ToUpper().Contains(searchBar.Text.ToUpper()))
+                                newCat.Add(p);
+
+                    _searchedGroups.Add(newCat);
+                }
+                listeProduits.ItemsSource = _searchedGroups;
             }
             else
             {
@@ -166,10 +174,13 @@ namespace SpeculPlus
         private void HeaderTapped(object sender, EventArgs e)
         {
             // New page
-            int selectedIndex = _expandedGroups.IndexOf(
-                ((ProductsCategory)((Button)sender).CommandParameter));
-            clvm.ProductsCategory[selectedIndex].Expanded = !clvm.ProductsCategory[selectedIndex].Expanded;
+            int selectedIndex = _expandedGroups.IndexOf((ProductsCategory)((Button)sender).CommandParameter);
 
+            if(selectedIndex >= 0 && selectedIndex < clvm.ProductsCategory.Count)
+                clvm.ProductsCategory[selectedIndex].Expanded = !clvm.ProductsCategory[selectedIndex].Expanded;
+
+            searchBar.Text = "";
+            //storage.Save();
             UpdateListContent();
         }
 
@@ -180,20 +191,47 @@ namespace SpeculPlus
 
         private async void CategoryNameTapped(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("Catégorie " + ((ProductsCategory)((Label)sender).BindingContext).Parent.Name, "Retour", "Supprimer");
+            string action = await DisplayActionSheet("Catégorie " + ((ProductsCategory)((Label)sender).BindingContext).Parent.Name, "Retour", "Supprimer", "Renommer", "Définir comme catégorie par défaut");
 
+            CategoryViewModel catSelected = ((ProductsCategory)((Label)sender).BindingContext).Parent;
             switch (action)
             {
                 case "Supprimer":
-                    CategoryViewModel catSelected = ((ProductsCategory)((Label)sender).BindingContext).Parent;
-
                     string confirm = await DisplayActionSheet("Êtes-vous sûr ?", "Non", "Oui");
 
                     if (confirm == "Oui")
                     {
                         clvm.Remove(catSelected);
+                        storage.Save();
                         UpdateListContent();
                     }
+                    break;
+                case "Renommer":
+                    string newName = await DisplayPromptAsync("Renommer", "Quel devra être le nouveau nom de la catégorie " + catSelected.Name + "?", "Renommer", "Annuler");
+
+                    if (newName != null)
+                    {
+                        bool canCreate = true;
+                        foreach (var c in clvm.Categories)
+                            if (c.Name == newName)
+                                canCreate = false;
+
+                        if (canCreate)
+                        {
+                            catSelected.Name = newName;
+
+                            storage.Save();
+                            UpdateListContent();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Échec", "Cette catégorie existe déjà !", "Zut");
+                        }
+                    }
+                    break;
+                case "Définir comme catégorie par défaut":
+                    clvm.DefaultCategory = catSelected;
+                    storage.Save();
                     break;
                 default:
                     break;
@@ -210,8 +248,10 @@ namespace SpeculPlus
             _expandedGroups = new ObservableCollection<ProductsCategory>();
             foreach (ProductsCategory category in clvm.ProductsCategory)
             {
-                ProductsCategory newCat = new ProductsCategory(category.Parent, new List<ProductViewModel>(), category.Expanded);
-                newCat.ProductCount = category.Count;
+                ProductsCategory newCat = new ProductsCategory(category.Parent, new List<ProductViewModel>(), category.Expanded)
+                {
+                    ProductCount = category.Count
+                };
 
                 if (category.Expanded)
                     foreach (ProductViewModel p in category)

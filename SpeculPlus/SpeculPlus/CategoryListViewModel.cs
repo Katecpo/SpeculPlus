@@ -50,7 +50,11 @@ namespace SpeculPlus
         {
             get
             {
-                return categoriesVm.Single(i => i.Name == "Autres");
+                return categoriesVm.Single(i => i.Name == categoryList.DefaultCategory);
+            }
+            set
+            {
+                categoryList.DefaultCategory = value.Name;
             }
         }
 
@@ -101,17 +105,15 @@ namespace SpeculPlus
         }
 
         /// <summary>
-        /// Créer les catégories par défaut si aucune catégorie n'est disponible
+        /// Crée les catégories par défaut si aucune catégorie n'est disponible
         /// </summary>
         public void CreateDefaultCategories()
         {
             if (Categories.Count == 0)
             {
-                Add(new Category("Figurines", "Black"));
-                Add(new Category("Livres", "DarkGray"));
-                Add(new Category("Musique", "White"));
-                Add(new Category("Vêtements", "Yellow"));
-                Add(new Category("Autres", "Cyan"));
+                Category c = new Category("Nouvelle catégorie", "Black");
+                Add(c);
+                DefaultCategory = categoriesVm[0];
             }
         }
         #endregion
